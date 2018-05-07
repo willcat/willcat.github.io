@@ -78,6 +78,4 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: 
-    github: https://github.com/willcat/willcat.github.io.git,master
+  type:
