@@ -23,3 +23,7 @@
 ### 三、本地资料丢失后的流程当重装电脑之后，或者想在其他电脑上修改博客，可以使用下列步骤：
 1. 使用`git clone git@github.com:xxx/xxx.github.io.git`拷贝仓库（默认分支为hexo）；
 2. 在本地新拷贝的 xxx.github.io 文件夹下通过Git bash指令：`npm update`
+
+### 四、 部署的时候遇到的问题
+`fatal: could not read Username for 'https://github.com': No error`,在win下通过
+升级Git，解决了
