@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="鹤舞云端">
 <meta property="og:description" content="flink是什么Flink是一个基于流计算的分布式引擎。 flink简要历史2010年，一项名为”Stratosphere: Information Management on the Cloud”的研究项目由柏林科技大学、柏林洪堡大学、Hasso-Plattner-Institut Potsdam合作发起。Flink从Stratosphere分布式执行引擎的分支开始，并于2014年3月成为Apa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-10T10:43:34.100Z">
+<meta property="og:updated_time" content="2018-05-10T10:48:53.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flink系列笔记(一)入门篇">
 <meta name="twitter:description" content="flink是什么Flink是一个基于流计算的分布式引擎。 flink简要历史2010年，一项名为”Stratosphere: Information Management on the Cloud”的研究项目由柏林科技大学、柏林洪堡大学、Hasso-Plattner-Institut Potsdam合作发起。Flink从Stratosphere分布式执行引擎的分支开始，并于2014年3月成为Apa">
@@ -356,11 +356,13 @@
 <li>在DataSet(batch)API中内置对迭代程序(BSP)的支持</li>
 <li>定制内存管理功能，可在内存和外核数据处理算法之间进行高效稳健的切换</li>
 <li>Apache Hadoop MapReduce和Apache Storm的兼容层</li>
-<li>与YARN，HDFS，HBase以及Apache Hadoop生态系统的其他组件集成<h3 id="预备概念"><a href="#预备概念" class="headerlink" title="预备概念"></a>预备概念</h3><h4 id="两种数据集类型"><a href="#两种数据集类型" class="headerlink" title="两种数据集类型"></a>两种数据集类型</h4></li>
+<li>与YARN，HDFS，HBase以及Apache Hadoop生态系统的其他组件集成</li>
 </ol>
-<ul>
+<h3 id="预备概念"><a href="#预备概念" class="headerlink" title="预备概念"></a>预备概念</h3><h4 id="两种数据集类型"><a href="#两种数据集类型" class="headerlink" title="两种数据集类型"></a>两种数据集类型</h4><ul>
 <li>无界数据。持续追加的无限数据集。</li>
-<li>有界数据。确定的、不会改变的数据<h4 id="两种执行模型"><a href="#两种执行模型" class="headerlink" title="两种执行模型"></a>两种执行模型</h4></li>
+<li>有界数据。确定的、不会改变的数据</li>
+</ul>
+<h4 id="两种执行模型"><a href="#两种执行模型" class="headerlink" title="两种执行模型"></a>两种执行模型</h4><ul>
 <li>Streaming</li>
 <li>Batch</li>
 </ul>
