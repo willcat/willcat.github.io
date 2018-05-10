@@ -2,7 +2,7 @@
 title: flink系列笔记(一)入门篇
 date: 2018-05-09 12:02:56
 tags: [flink]
-categories： [大数据]
+categories: [大数据]
 ---
 
 ### flink是什么
