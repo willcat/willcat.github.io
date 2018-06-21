@@ -249,6 +249,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/21/实时分析笔记一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/21/实时分析笔记一/" itemprop="url">实时分析笔记一</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T10:15:59+08:00">
+                2018-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="实时分析系统设计要素"><a href="#实时分析系统设计要素" class="headerlink" title="实时分析系统设计要素"></a>实时分析系统设计要素</h3><ol>
+<li>数据采集</li>
+<li>数据流程</li>
+<li>数据处理</li>
+<li>数据存储</li>
+<li>数据交付</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/flink系列笔记-一-入门篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -367,7 +515,7 @@
 <li>Batch</li>
 </ul>
 <h3 id="流处理技术的发展"><a href="#流处理技术的发展" class="headerlink" title="流处理技术的发展"></a>流处理技术的发展</h3><p>连续数据的生产和批处理数据的消耗之间的脱节，虽然使系统构建者的工作变得容易，但是对应用开发者和DevOps团队等需要使用和管理这些系统的使用者来说，这增加了他们管理的复杂度。<br>为了解决这个脱节，一个开路先是<code>Apache Strom</code>项目，该项目在被纳入ASF之前，最初由Nathan Marz和一个叫BackType(后来被Twitter收购)的公司的一个团队发起。Storm带来了低延迟的流处理特性，但是它的实时处理带有折衷即：很难达到高吞吐，而且Storm没有提供通常需要的容错性(correctness)水平。换言之，Storm 缺少在维护正确状态时的<code>exactly-once</code>保证，而且Storm能提供的正确性保证也有很大的开销。</p>
-<h4 id="Lambda架构概览-优缺点"><a href="#Lambda架构概览-优缺点" class="headerlink" title="Lambda架构概览:优缺点"></a>Lambda架构概览:优缺点</h4><p>分布式架构如HDFS和基于批处理的MapReduce实现了可用性的扩展，但是这种方式很难解决低延迟的insight。Storm解决了低延迟的问题，但是还不是一个完整的方案，Storm不能通过exactly-once处理保证状态一致性，而且不太能解决时间处理(event-time processing)。<br>一种融合了这些方案的数据分析的混合观点提供了解决这些挑战的一种途径。这种混合就叫:<code>Lambda架构</code>,通过批处理MapReduce job提供延迟的但是准确的的结果，通过Storm提供一种及时和初步的新结果的视图。\<br>但是 Lambda也有它的问题所在，但一个时间窗口内由于可见的错误导致不准确数据产生时，Lambda架构需要为相同的业务逻辑编码两次，一是批处理系统，一是流式处理系统。<br>Spark Stream使用的是“微批”方法，不能达到完全的实时，不过可以使延迟降到几秒甚至亚秒。但是，作为低延迟/实时的代价，无法将窗口适配自然发生的会话，在表达性方面也遇到一些挑战。</p>
+<h4 id="Lambda架构概览-优缺点"><a href="#Lambda架构概览-优缺点" class="headerlink" title="Lambda架构概览:优缺点"></a>Lambda架构概览:优缺点</h4><p>分布式架构如HDFS和基于批处理的MapReduce实现了可用性的扩展，但是这种方式很难解决低延迟的insight。Storm解决了低延迟的问题，但是还不是一个完整的方案，Storm不能通过exactly-once处理保证状态一致性，而且不太能解决时间处理(event-time processing)。<br>一种融合了这些方案的数据分析的混合观点提供了解决这些挑战的一种途径。这种混合就叫:<code>Lambda架构</code>,通过批处理MapReduce job提供延迟的但是准确的的结果，通过Storm提供一种及时和初步的新结果的视图.\<br>但是 Lambda也有它的问题所在，但一个时间窗口内由于可见的错误导致不准确数据产生时，Lambda架构需要为相同的业务逻辑编码两次，一是批处理系统，一是流式处理系统。<br>Spark Stream使用的是“微批”方法，不能达到完全的实时，不过可以使延迟降到几秒甚至亚秒。但是，作为低延迟/实时的代价，无法将窗口适配自然发生的会话，在表达性方面也遇到一些挑战。</p>
 
           
         
@@ -592,7 +740,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -614,7 +762,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
