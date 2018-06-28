@@ -13,6 +13,8 @@
 7. 依次执行`git add` .、`git commit -m "..."`、`git push origin hexo`提交网站相关的文件；
 8. 执行`hexo g -d`生成网站并部署到GitHub上。这样一来，在GitHub上的http://xxx.github.io仓库就有两个分支，一个hexo分支用来存放网站的原始文件，一个master分支用来存放生成的静态网页。完美( •̀ ω •́ )y！
 ### 二、关于日常的改动流程在本地对博客进行修改（添加新博文、修改样式等等）后，通过下面的流程进行管理。
+0. 添加新文章
+	hexo new [文章名称]
 1. 依次执行`git add .`、
 `git commit -m "..."`、
 `git push origin hexo`
