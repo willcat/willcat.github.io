@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="鹤舞云端">
 <meta property="og:description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。java线程的创建   使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-29T09:33:04.649Z">
+<meta property="og:updated_time" content="2018-06-29T10:35:50.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发笔记1">
 <meta name="twitter:description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。java线程的创建   使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
@@ -357,7 +357,9 @@
 <li>阻塞</li>
 <li>死亡<h4 id="tip"><a href="#tip" class="headerlink" title="tip"></a>tip</h4></li>
 <li>注意少使用<code>suspend()</code>和<code>stop()</code>，这样会造成死锁。</li>
-<li>使用<code>isAlive()</code>判断<h4 id="线程的控制"><a href="#线程的控制" class="headerlink" title="线程的控制"></a>线程的控制</h4><h5 id="join线程"><a href="#join线程" class="headerlink" title="join线程"></a>join线程</h5>在执行的线程A运行时调用其他线程B的<code>B.join()</code>方法后，A线程将等到B线程结束之后才执行。</li>
+<li>使用<code>isAlive()</code>判断<h4 id="线程的控制"><a href="#线程的控制" class="headerlink" title="线程的控制"></a>线程的控制</h4></li>
+<li>join线程<br>在执行的线程A运行时调用其他线程B的<code>B.join()</code>方法后，A线程将等到B线程结束之后才执行。</li>
+<li>后台进程<br>在<code>start()</code>之前，调用<code>setDaemon()</code>。可以使用<code>isDaemon()</code>判断是否是后台线程，后台线程创建的线程默认是后台线程。程序中的所有前台线程运行结束后，后台线程会被通知死亡，不过这会有一定的时间。</li>
 </ol>
 
       
@@ -535,7 +537,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程优点"><span class="nav-number">1.1.</span> <span class="nav-text">多线程优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java线程的创建"><span class="nav-number">1.2.</span> <span class="nav-text">java线程的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的周期"><span class="nav-number">1.3.</span> <span class="nav-text">线程的周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tip"><span class="nav-number">1.4.</span> <span class="nav-text">tip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的控制"><span class="nav-number">1.5.</span> <span class="nav-text">线程的控制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#join线程"><span class="nav-number">1.5.1.</span> <span class="nav-text">join线程</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程优点"><span class="nav-number">1.1.</span> <span class="nav-text">多线程优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java线程的创建"><span class="nav-number">1.2.</span> <span class="nav-text">java线程的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的周期"><span class="nav-number">1.3.</span> <span class="nav-text">线程的周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tip"><span class="nav-number">1.4.</span> <span class="nav-text">tip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的控制"><span class="nav-number">1.5.</span> <span class="nav-text">线程的控制</span></a></li></ol></li></ol></div>
             
 
           </div>

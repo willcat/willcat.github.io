@@ -357,7 +357,9 @@
 <li>阻塞</li>
 <li>死亡<h4 id="tip"><a href="#tip" class="headerlink" title="tip"></a>tip</h4></li>
 <li>注意少使用<code>suspend()</code>和<code>stop()</code>，这样会造成死锁。</li>
-<li>使用<code>isAlive()</code>判断<h4 id="线程的控制"><a href="#线程的控制" class="headerlink" title="线程的控制"></a>线程的控制</h4><h5 id="join线程"><a href="#join线程" class="headerlink" title="join线程"></a>join线程</h5>在执行的线程A运行时调用其他线程B的<code>B.join()</code>方法后，A线程将等到B线程结束之后才执行。</li>
+<li>使用<code>isAlive()</code>判断<h4 id="线程的控制"><a href="#线程的控制" class="headerlink" title="线程的控制"></a>线程的控制</h4></li>
+<li>join线程<br>在执行的线程A运行时调用其他线程B的<code>B.join()</code>方法后，A线程将等到B线程结束之后才执行。</li>
+<li>后台进程<br>在<code>start()</code>之前，调用<code>setDaemon()</code>。可以使用<code>isDaemon()</code>判断是否是后台线程，后台线程创建的线程默认是后台线程。程序中的所有前台线程运行结束后，后台线程会被通知死亡，不过这会有一定的时间。</li>
 </ol>
 
           
