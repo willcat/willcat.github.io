@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。java线程的创建   使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
+<meta name="description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。  java线程的创建 使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
 <meta name="keywords" content="Java,编程语言,读书笔记,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发笔记1">
 <meta property="og:url" content="http://yoursite.com/2018/06/28/Java并发笔记1/index.html">
 <meta property="og:site_name" content="鹤舞云端">
-<meta property="og:description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。java线程的创建   使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
+<meta property="og:description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。  java线程的创建 使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-29T10:35:50.613Z">
+<meta property="og:updated_time" content="2018-07-02T10:37:53.982Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发笔记1">
-<meta name="twitter:description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。java线程的创建   使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
+<meta name="twitter:description" content="进程和线程一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。 多线程优点 进程间内存不能共享，而线程间可以共享内存 新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。  java线程的创建 使用Thread()创建线程，使用start()方法来启动线程。 也可以通">
 
 
 
@@ -342,24 +342,69 @@
       
 
       
-        <h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><p>一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的系统资源。因此要小心线程之间彼此影响。</p>
+        <h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><p>一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的<br>系统资源。因此要小心线程之间彼此影响。</p>
 <h4 id="多线程优点"><a href="#多线程优点" class="headerlink" title="多线程优点"></a>多线程优点</h4><ul>
 <li>进程间内存不能共享，而线程间可以共享内存</li>
-<li>新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现多任务比多进程效率更高。<h4 id="java线程的创建"><a href="#java线程的创建" class="headerlink" title="java线程的创建"></a>java线程的创建</h4></li>
+<li>新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现<br>多任务比多进程效率更高。</li>
 </ul>
-<ol>
+<h4 id="java线程的创建"><a href="#java线程的创建" class="headerlink" title="java线程的创建"></a>java线程的创建</h4><ol>
 <li>使用<code>Thread()</code>创建线程，使用<code>start()</code>方法来启动线程。</li>
 <li>也可以通过实现<code>Runnable</code>接口，然后作为<code>Thread</code>的target创建线程。</li>
-<li><code>Runnable</code>接口方式的优点是可以继承其他类。<h4 id="线程的周期"><a href="#线程的周期" class="headerlink" title="线程的周期"></a>线程的周期</h4></li>
+<li><code>Runnable</code>接口方式的优点是可以继承其他类。</li>
+</ol>
+<h4 id="线程的周期"><a href="#线程的周期" class="headerlink" title="线程的周期"></a>线程的周期</h4><ol>
 <li>创建。想让新创建的子线程立即执行可以使用<code>Thread.sleep(1)</code>，让主线程暂停一下。</li>
 <li>就绪</li>
 <li>运行</li>
 <li>阻塞</li>
-<li>死亡<h4 id="tip"><a href="#tip" class="headerlink" title="tip"></a>tip</h4></li>
+<li>死亡</li>
+</ol>
+<h4 id="tip"><a href="#tip" class="headerlink" title="tip"></a>tip</h4><ol>
 <li>注意少使用<code>suspend()</code>和<code>stop()</code>，这样会造成死锁。</li>
-<li>使用<code>isAlive()</code>判断<h4 id="线程的控制"><a href="#线程的控制" class="headerlink" title="线程的控制"></a>线程的控制</h4></li>
+<li>使用<code>isAlive()</code>判断</li>
+</ol>
+<h4 id="线程的控制"><a href="#线程的控制" class="headerlink" title="线程的控制"></a>线程的控制</h4><ol>
 <li>join线程<br>在执行的线程A运行时调用其他线程B的<code>B.join()</code>方法后，A线程将等到B线程结束之后才执行。</li>
-<li>后台进程<br>在<code>start()</code>之前，调用<code>setDaemon()</code>。可以使用<code>isDaemon()</code>判断是否是后台线程，后台线程创建的线程默认是后台线程。程序中的所有前台线程运行结束后，后台线程会被通知死亡，不过这会有一定的时间。</li>
+<li>后台进程<br>在<code>start()</code>之前，调用<code>setDaemon()</code>。可以使用<code>isDaemon()</code>判断是否是后台线程，后台线程<br>创建的线程默认是后台线程。程序中的所有前台线程运行结束后，后台线程会被通知死亡，不过这会<br>有一定的时间。</li>
+<li><code>yield()</code>静态方法<br>与<code>sleep()</code>类似，但是不会让位于优先级比自己低的线程，所以如果其优先级最高且没有同级的<br>线程的话，调用此方法后该线程依然继续执行。</li>
+<li>设置线程优先级<br><code>setPriority(int)</code>接受1～10的整数，或者三个静态常量:  <code>MAX_PRIORITY</code>,<code>MIN_PRIORITY</code>,<code>NORM_PRIORITY</code>,对应的数值依次为10,1,5.<br><strong>虽然Java提供了1～10共10个级别，但是有的系统并不支持，所以为了移植性，最佳实践是<br>使用常量而为直接指定数值</strong></li>
+</ol>
+<h4 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h4><p>ADD: 在并发编程中我们经常会遇到三个问题：原子性问题、可见性问题、有序性问题。</p>
+<h5 id="同步代码块"><a href="#同步代码块" class="headerlink" title="同步代码块"></a>同步代码块</h5><p>eg. <code>synchronized(obj)</code>,其中<code>obj</code>为同步监视器，Java允许使用任何对象作为同步监视器，<br>但是由于我们的目的是阻止两条线程并发访问一个共享资源，所以最佳实践是使用可能被并发访问<br>的资源作为同步监视器。</p>
+<h5 id="同步方法"><a href="#同步方法" class="headerlink" title="同步方法"></a>同步方法</h5><p>此时不需要指定同步监视器，方法会自动把<code>this</code>当成同步监视器。通过同步方法，一般可以使类<br>成为线程安全的类，这样的类有如下特点：</p>
+<ol>
+<li>该类的对象可以被多个线程同时访问</li>
+<li>访问该对象的任意方法都能得到正确的结果</li>
+<li>访问该对象的任意方法，该对象都能依然保持合理状态</li>
+</ol>
+<p><em>可变类的线程安全是以降低程序效率为代价的，为了降低对性能的影响，需要采取以下策略:</em></p>
+<ol>
+<li>减少同步的使用，只对会改变竞争资源的方法同步</li>
+<li>如果可变类有两个运行环境:多线程环境和单线程环境，则可以开发线程安全和非线程安全两个<br>版本</li>
+</ol>
+<h5 id="释放同步监视器的锁定"><a href="#释放同步监视器的锁定" class="headerlink" title="释放同步监视器的锁定"></a>释放同步监视器的锁定</h5><p>程序无法显示释放对同步监视器的锁定，线程释放锁定有以下几种情况:</p>
+<ol>
+<li>同步方法或者代码块执行完毕</li>
+<li>同步方法执行到<code>break</code>,<code>return</code></li>
+<li>同步方法执行到<code>wait()</code>方法</li>
+<li>同步方法遇到<code>Error</code>和<code>Exception</code>等中止程序继续运行的情况<br>线程不会释放锁定的情况:</li>
+<li>执行<code>sleep()</code>,<code>yield()</code>时</li>
+<li>执行<code>suspend()</code>时<h5 id="同步锁Lock"><a href="#同步锁Lock" class="headerlink" title="同步锁Lock"></a>同步锁<code>Lock</code></h5>类似<code>synchronized</code>的机制，<code>Lock</code>常用的是<code>ReentrantLock</code>。同步锁需要显示的加锁和释放。<br>通常在<code>finally</code>里释放。<code>ReentrantLock</code>具有重入性，线程可以对它已经加锁的<code>ReentrantLock</code><br>再次加锁，<em>所以一段被锁保护的方法可以调用另一个被相同锁保护的方法</em>。<h5 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h5>少使用<code>suspend()</code>方法，会造成死锁。<h5 id="线程通信"><a href="#线程通信" class="headerlink" title="线程通信"></a>线程通信</h5></li>
+<li><code>synchronized</code>方式<ul>
+<li><code>wait()</code> ：导致该线程等待并放弃同步监视器，知道该同步监视器的<code>notify()</code>或者<code>notifyAll()</code>方法来唤醒改线程</li>
+<li><code>notify()</code> ：选择任意一个在该同步监视器上的线程，将其唤醒</li>
+<li><code>notifyAll()</code> ：唤醒所有等待同步监视器的线程</li>
+<li>上述三个方法都属于<code>Object</code>而非<code>Thread</code>,这三个方法都必须由同步监视器来调用。</li>
+</ul>
+</li>
+<li>同步锁方式<ul>
+<li>如果不使用<code>synchronized</code>而是用<code>Lock</code>的话则不能再使用上述方法，此时我们使用Java提供的<code>Condition</code>类保持协调。<code>Lock</code>代替了同步方法或者同步块，<code>Condition</code>代替了同步监视器的功能。<code>Condition</code>提供了类似的三个方法:</li>
+<li><code>await()</code> : <code>await()</code>还有多种变体如: <code>awaitNanos(long)</code>, <code>awaitUninterruptibly()</code>等</li>
+<li><code>signal()</code></li>
+<li><code>signalAll()</code></li>
+</ul>
+</li>
+<li>使用管道流<br> 与普通IO类似，可以使用字节流、字符流和新IO Channel三种形式。通常有共享数据就可以了，不需要使用管道流。</li>
 </ol>
 
       
@@ -537,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程优点"><span class="nav-number">1.1.</span> <span class="nav-text">多线程优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java线程的创建"><span class="nav-number">1.2.</span> <span class="nav-text">java线程的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的周期"><span class="nav-number">1.3.</span> <span class="nav-text">线程的周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tip"><span class="nav-number">1.4.</span> <span class="nav-text">tip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的控制"><span class="nav-number">1.5.</span> <span class="nav-text">线程的控制</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程优点"><span class="nav-number">1.1.</span> <span class="nav-text">多线程优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java线程的创建"><span class="nav-number">1.2.</span> <span class="nav-text">java线程的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的周期"><span class="nav-number">1.3.</span> <span class="nav-text">线程的周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tip"><span class="nav-number">1.4.</span> <span class="nav-text">tip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的控制"><span class="nav-number">1.5.</span> <span class="nav-text">线程的控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程同步"><span class="nav-number">1.6.</span> <span class="nav-text">线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#同步代码块"><span class="nav-number">1.6.1.</span> <span class="nav-text">同步代码块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步方法"><span class="nav-number">1.6.2.</span> <span class="nav-text">同步方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#释放同步监视器的锁定"><span class="nav-number">1.6.3.</span> <span class="nav-text">释放同步监视器的锁定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步锁Lock"><span class="nav-number">1.6.4.</span> <span class="nav-text">同步锁Lock</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#死锁"><span class="nav-number">1.6.5.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程通信"><span class="nav-number">1.6.6.</span> <span class="nav-text">线程通信</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
