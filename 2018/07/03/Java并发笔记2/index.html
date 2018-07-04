@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="线程组和未处理异常较少使用  线程组可以批量设置管理线程，如果创建的线程不指定分组则为默认线程组，默认情况下子线程和创建它的父线程属于同一个分组。 可以在线程或者线程组上设置Thread.UncaughtExceptionHandler,在线程执行过程中如果抛出一个未处理的异常，JVM在结束该线程前会自动查找是否有对应的实现了Thread.UncaughtExceptionHandler接口的对象">
+<meta name="description" content="1 线程组和未处理异常较少使用  线程组可以批量设置管理线程，如果创建的线程不指定分组则为默认线程组，默认情况下子线程和创建它的父线程属于同一个分组。 可以在线程或者线程组上设置Thread.UncaughtExceptionHandler,在线程执行过程中如果抛出一个未处理的异常，JVM在结束该线程前会自动查找是否有对应的实现了Thread.UncaughtExceptionHandler接口的">
 <meta name="keywords" content="Java,编程语言,读书笔记,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发笔记2">
 <meta property="og:url" content="http://yoursite.com/2018/07/03/Java并发笔记2/index.html">
 <meta property="og:site_name" content="鹤舞云端">
-<meta property="og:description" content="线程组和未处理异常较少使用  线程组可以批量设置管理线程，如果创建的线程不指定分组则为默认线程组，默认情况下子线程和创建它的父线程属于同一个分组。 可以在线程或者线程组上设置Thread.UncaughtExceptionHandler,在线程执行过程中如果抛出一个未处理的异常，JVM在结束该线程前会自动查找是否有对应的实现了Thread.UncaughtExceptionHandler接口的对象">
+<meta property="og:description" content="1 线程组和未处理异常较少使用  线程组可以批量设置管理线程，如果创建的线程不指定分组则为默认线程组，默认情况下子线程和创建它的父线程属于同一个分组。 可以在线程或者线程组上设置Thread.UncaughtExceptionHandler,在线程执行过程中如果抛出一个未处理的异常，JVM在结束该线程前会自动查找是否有对应的实现了Thread.UncaughtExceptionHandler接口的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-03T10:24:25.077Z">
+<meta property="og:updated_time" content="2018-07-04T09:33:53.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发笔记2">
-<meta name="twitter:description" content="线程组和未处理异常较少使用  线程组可以批量设置管理线程，如果创建的线程不指定分组则为默认线程组，默认情况下子线程和创建它的父线程属于同一个分组。 可以在线程或者线程组上设置Thread.UncaughtExceptionHandler,在线程执行过程中如果抛出一个未处理的异常，JVM在结束该线程前会自动查找是否有对应的实现了Thread.UncaughtExceptionHandler接口的对象">
+<meta name="twitter:description" content="1 线程组和未处理异常较少使用  线程组可以批量设置管理线程，如果创建的线程不指定分组则为默认线程组，默认情况下子线程和创建它的父线程属于同一个分组。 可以在线程或者线程组上设置Thread.UncaughtExceptionHandler,在线程执行过程中如果抛出一个未处理的异常，JVM在结束该线程前会自动查找是否有对应的实现了Thread.UncaughtExceptionHandler接口的">
 
 
 
@@ -342,12 +342,39 @@
       
 
       
-        <h3 id="线程组和未处理异常"><a href="#线程组和未处理异常" class="headerlink" title="线程组和未处理异常"></a>线程组和未处理异常</h3><p><em>较少使用</em></p>
+        <h3 id="1-线程组和未处理异常"><a href="#1-线程组和未处理异常" class="headerlink" title="1 线程组和未处理异常"></a>1 线程组和未处理异常</h3><p><em>较少使用</em></p>
 <ul>
 <li>线程组可以批量设置管理线程，如果创建的线程不指定分组则为默认线程组，默认情况下子线程和创建它的父线程属于同一个分组。</li>
 <li>可以在线程或者线程组上设置<code>Thread.UncaughtExceptionHandler</code>,在线程执行过程中如果抛出一个未处理的异常，JVM在结束该线程前会自动查找是否有对应的实现了<code>Thread.UncaughtExceptionHandler</code>接口的对象，如果找到则执行该对象的<code>UncaughtException</code>方法</li>
 </ul>
-<h3 id="Callable和Future"><a href="#Callable和Future" class="headerlink" title="Callable和Future"></a>Callable和Future</h3>
+<h3 id="2-Callable和Future"><a href="#2-Callable和Future" class="headerlink" title="2 Callable和Future"></a>2 Callable和Future</h3><p>特点如下：</p>
+<ol>
+<li>实现<code>Callable</code>接口后，可以通过<code>call()</code>抛出异常和返回结果</li>
+<li>实现<code>Future</code>接口的<code>FutureTask</code>可以接受<code>Callable</code>的返回值.</li>
+</ol>
+<h3 id="3-线程池"><a href="#3-线程池" class="headerlink" title="3 线程池"></a>3 线程池</h3><p><code>ExecutorService pool = Executors.newFixedThreadPool(6);
+pool.submit(new RunnableThread());//支持Runnable和Future
+pool.shutdown();</code></p>
+<h3 id="4-线程相关类"><a href="#4-线程相关类" class="headerlink" title="4 线程相关类"></a>4 线程相关类</h3><h4 id="4-1-ThreadLocal"><a href="#4-1-ThreadLocal" class="headerlink" title="4.1 ThreadLocal"></a>4.1 <code>ThreadLocal</code></h4><ol>
+<li>要点: 同步机制是为了使所有线程能够<em>共享</em>对象，而<code>ThreadLocal</code>是为了<em>隔离</em>对象，即每个线程都修改该对象的副本而不会影响到其他线程。</li>
+<li>使用: <code>private ThreadLocal&lt;String&gt; localVar= new ThreadLocal&lt;String&gt;()</code></li>
+</ol>
+<h4 id="4-2-包装线程不安全的类"><a href="#4-2-包装线程不安全的类" class="headerlink" title="4.2 包装线程不安全的类"></a>4.2 包装线程不安全的类</h4><p><code>Collections</code>提供了以下几个接口来将线程不安全的集合转为线程安全的:</p>
+<ul>
+<li><code>synchronizedCollection()</code> 返回线程安全的<code>collection</code></li>
+<li><code>synchronizedSet()</code> 返回线程安全的<code>Set</code></li>
+<li><code>synchronizedMap()</code> 返回线程安全的<code>Map</code></li>
+<li><code>synchronizedSortedSet()</code> 返回线程安全的<code>SortedSet</code></li>
+<li><code>synchronizedSortedMap()</code> 返回线程安全的<code>SortedMap</code></li>
+<li><code>synchronizedList()</code> 返回线程安全的<code>List</code></li>
+</ul>
+<h4 id="4-3-线程安全的集合类"><a href="#4-3-线程安全的集合类" class="headerlink" title="4.3 线程安全的集合类"></a>4.3 线程安全的集合类</h4><p><code>java.util.concurrent</code>包下的:</p>
+<ul>
+<li><code>ConcurrentHashMap</code></li>
+<li><code>ConcurrentLinkedDeque</code></li>
+<li><code>ConcurrentLinkedQueue</code><br>以上几个类都支持并发读写，在读时不会锁定。<em>创建迭代器之后，对其修改是不能在遍历中反应出来的，而且不会报错</em>,而<code>java.util</code>包下的集合类是会报<code>ConcurrentModificationException</code>的异常的</li>
+</ul>
+
       
     </div>
     
@@ -523,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程组和未处理异常"><span class="nav-number">1.</span> <span class="nav-text">线程组和未处理异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Callable和Future"><span class="nav-number">2.</span> <span class="nav-text">Callable和Future</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-线程组和未处理异常"><span class="nav-number">1.</span> <span class="nav-text">1 线程组和未处理异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Callable和Future"><span class="nav-number">2.</span> <span class="nav-text">2 Callable和Future</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-线程池"><span class="nav-number">3.</span> <span class="nav-text">3 线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-线程相关类"><span class="nav-number">4.</span> <span class="nav-text">4 线程相关类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-ThreadLocal"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 ThreadLocal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-包装线程不安全的类"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 包装线程不安全的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-线程安全的集合类"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 线程安全的集合类</span></a></li></ol></li></ol></div>
             
 
           </div>
