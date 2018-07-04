@@ -516,6 +516,11 @@ pool.shutdown();</code></p>
         
           
             <h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><p>一个进程可以有多个线程，线程有自己的堆栈，自己的程序计数器和局部变量，但是他们共享进程的<br>系统资源。因此要小心线程之间彼此影响。</p>
+<h3 id="并发编程三个特点："><a href="#并发编程三个特点：" class="headerlink" title="并发编程三个特点："></a>并发编程三个特点：</h3><ul>
+<li>原子性问题</li>
+<li>可见性问题</li>
+<li>有序性问题</li>
+</ul>
 <h4 id="多线程优点"><a href="#多线程优点" class="headerlink" title="多线程优点"></a>多线程优点</h4><ul>
 <li>进程间内存不能共享，而线程间可以共享内存</li>
 <li>新建进程需要分配系统资源，而新建线程则不需要分配，创建和切换代价小，从而使多线程来实现<br>多任务比多进程效率更高。</li>
@@ -542,8 +547,7 @@ pool.shutdown();</code></p>
 <li><code>yield()</code>静态方法<br>与<code>sleep()</code>类似，但是不会让位于优先级比自己低的线程，所以如果其优先级最高且没有同级的<br>线程的话，调用此方法后该线程依然继续执行。</li>
 <li>设置线程优先级<br><code>setPriority(int)</code>接受1～10的整数，或者三个静态常量:  <code>MAX_PRIORITY</code>,<code>MIN_PRIORITY</code>,<code>NORM_PRIORITY</code>,对应的数值依次为10,1,5.<br><strong>虽然Java提供了1～10共10个级别，但是有的系统并不支持，所以为了移植性，最佳实践是<br>使用常量而为直接指定数值</strong></li>
 </ol>
-<h4 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h4><p>ADD: 在并发编程中我们经常会遇到三个问题：原子性问题、可见性问题、有序性问题。</p>
-<h5 id="同步代码块"><a href="#同步代码块" class="headerlink" title="同步代码块"></a>同步代码块</h5><p>eg. <code>synchronized(obj)</code>,其中<code>obj</code>为同步监视器，Java允许使用任何对象作为同步监视器，<br>但是由于我们的目的是阻止两条线程并发访问一个共享资源，所以最佳实践是使用可能被并发访问<br>的资源作为同步监视器。</p>
+<h4 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h4><h5 id="同步代码块"><a href="#同步代码块" class="headerlink" title="同步代码块"></a>同步代码块</h5><p>eg. <code>synchronized(obj)</code>,其中<code>obj</code>为同步监视器，Java允许使用任何对象作为同步监视器，<br>但是由于我们的目的是阻止两条线程并发访问一个共享资源，所以最佳实践是使用可能被并发访问<br>的资源作为同步监视器。</p>
 <h5 id="同步方法"><a href="#同步方法" class="headerlink" title="同步方法"></a>同步方法</h5><p>此时不需要指定同步监视器，方法会自动把<code>this</code>当成同步监视器。通过同步方法，一般可以使类<br>成为线程安全的类，这样的类有如下特点：</p>
 <ol>
 <li>该类的对象可以被多个线程同时访问</li>
@@ -562,7 +566,11 @@ pool.shutdown();</code></p>
 <li>同步方法执行到<code>wait()</code>方法</li>
 <li>同步方法遇到<code>Error</code>和<code>Exception</code>等中止程序继续运行的情况<br>线程不会释放锁定的情况:</li>
 <li>执行<code>sleep()</code>,<code>yield()</code>时</li>
-<li>执行<code>suspend()</code>时<h5 id="同步锁Lock"><a href="#同步锁Lock" class="headerlink" title="同步锁Lock"></a>同步锁<code>Lock</code></h5>类似<code>synchronized</code>的机制，<code>Lock</code>常用的是<code>ReentrantLock</code>。同步锁需要显示的加锁和释放。<br>通常在<code>finally</code>里释放。<code>ReentrantLock</code>具有重入性，线程可以对它已经加锁的<code>ReentrantLock</code><br>再次加锁，<em>所以一段被锁保护的方法可以调用另一个被相同锁保护的方法</em>。<h5 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h5>少使用<code>suspend()</code>方法，会造成死锁。<h5 id="线程通信"><a href="#线程通信" class="headerlink" title="线程通信"></a>线程通信</h5></li>
+<li>执行<code>suspend()</code>时</li>
+</ol>
+<h5 id="同步锁Lock"><a href="#同步锁Lock" class="headerlink" title="同步锁Lock"></a>同步锁<code>Lock</code></h5><p>类似<code>synchronized</code>的机制，<code>Lock</code>常用的是<code>ReentrantLock</code>。同步锁需要显示的加锁和释放。<br>通常在<code>finally</code>里释放。<code>ReentrantLock</code>具有重入性，线程可以对它已经加锁的<code>ReentrantLock</code><br>再次加锁，<em>所以一段被锁保护的方法可以调用另一个被相同锁保护的方法</em>。</p>
+<h5 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h5><p>少使用<code>suspend()</code>方法，会造成死锁。</p>
+<h5 id="线程通信"><a href="#线程通信" class="headerlink" title="线程通信"></a>线程通信</h5><ol>
 <li><code>synchronized</code>方式<ul>
 <li><code>wait()</code> ：导致该线程等待并放弃同步监视器，知道该同步监视器的<code>notify()</code>或者<code>notifyAll()</code>方法来唤醒改线程</li>
 <li><code>notify()</code> ：选择任意一个在该同步监视器上的线程，将其唤醒</li>
