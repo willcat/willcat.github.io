@@ -346,7 +346,7 @@
 <ol>
 <li>类自己管理内存</li>
 <li>缓存处理不当</li>
-<li>API注册和回调</li>
+<li>监听和其他回调</li>
 </ol>
 <h4 id="类自己管理内存"><a href="#类自己管理内存" class="headerlink" title="类自己管理内存"></a>类自己管理内存</h4><h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><p>例如实现一个<code>Stack</code>，使用数组维护栈内内容，当栈增加元素时是没问题的，但是当栈执行<code>pop()</code>时，如果只返回当前元素，而不将数组当前元素指向<code>null</code>，则此对象因一直被引用而不能被回收。</p>
 <h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ol>
@@ -356,6 +356,17 @@
 <h4 id="缓存处理不当"><a href="#缓存处理不当" class="headerlink" title="缓存处理不当"></a>缓存处理不当</h4><h5 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h5><p>当将对象放到缓存中，随着时间推移，缓存中的对象已经无效后未被正确清除就会造成内存泄漏。</p>
 <h5 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h5><ol>
 <li>使用<code>WeakHashMap</code>存储缓存，当<code>key</code>不再被引用的时候，<code>GC</code>会自动把这个<code>entry</code>清理掉</li>
+<li>对于那些使用时间不确定的缓存条目，可以是用<code>ScheduledThreadPoolExecutor</code>在后台定时清理</li>
+<li>也可以当做添加新缓存条目时的副作用，比如通过重写<code>LinkedHashMap.removeEldestEntry()</code>方法，在添加新元素时该方法如果返回true清除旧的元素</li>
+<li>更复杂的需求则需要是用<code>java.lang.ref</code>了</li>
+</ol>
+<h4 id="监听和其他回调"><a href="#监听和其他回调" class="headerlink" title="监听和其他回调"></a>监听和其他回调</h4><h5 id="场景-2"><a href="#场景-2" class="headerlink" title="场景"></a>场景</h5><p>当你的API有回调函数被Client注册之后，Client如果没有显式解除注册就会造成内存泄漏</p>
+<h5 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h5><ol>
+<li>将这些回调用<code>WeakHashMap</code>的key保存</li>
+</ol>
+<h4 id="实践建议"><a href="#实践建议" class="headerlink" title="实践建议"></a>实践建议</h4><ol>
+<li>提前预防，编码时就认真审核这些问题。</li>
+<li>其次是审核代码和使用<code>heap profiler</code>来分析</li>
 </ol>
 
           
