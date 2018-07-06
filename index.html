@@ -342,7 +342,22 @@
       
         
           
-            <h3 id="Item-7-消除过期对象引用"><a href="#Item-7-消除过期对象引用" class="headerlink" title="Item 7: 消除过期对象引用"></a>Item 7: 消除过期对象引用</h3>
+            <h3 id="Item-7-消除过期对象引用"><a href="#Item-7-消除过期对象引用" class="headerlink" title="Item 7: 消除过期对象引用"></a>Item 7: 消除过期对象引用</h3><p>产生过期(obsolete)对象的主要原因:</p>
+<ol>
+<li>类自己管理内存</li>
+<li>缓存处理不当</li>
+<li>API注册和回调</li>
+</ol>
+<h4 id="类自己管理内存"><a href="#类自己管理内存" class="headerlink" title="类自己管理内存"></a>类自己管理内存</h4><h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><p>例如实现一个<code>Stack</code>，使用数组维护栈内内容，当栈增加元素时是没问题的，但是当栈执行<code>pop()</code>时，如果只返回当前元素，而不将数组当前元素指向<code>null</code>，则此对象因一直被引用而不能被回收。</p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ol>
+<li>手动将不用的对象引用指向<code>null</code>。<em>注意:这样做应该是例外而非惯例</em></li>
+<li>让包含对象引用的变量尽快脱离其作用域才是更好的实践，如将变量定义在最小的作用域里。</li>
+</ol>
+<h4 id="缓存处理不当"><a href="#缓存处理不当" class="headerlink" title="缓存处理不当"></a>缓存处理不当</h4><h5 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h5><p>当将对象放到缓存中，随着时间推移，缓存中的对象已经无效后未被正确清除就会造成内存泄漏。</p>
+<h5 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h5><ol>
+<li>使用<code>WeakHashMap</code>存储缓存，当<code>key</code>不再被引用的时候，<code>GC</code>会自动把这个<code>entry</code>清理掉</li>
+</ol>
+
           
         
       
