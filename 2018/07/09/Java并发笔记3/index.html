@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="鹤舞云端">
 <meta property="og:description" content="Java并发编程实战第二章 线程安全编写线程安全代码的核心是管理对状态的访问，尤其共享和可变状态的访问。通过同步协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是synchronized关键词，但是同步(synchronization)这个属于还包括:volatile变量、显式(explicit)锁和原子(atomic)变量。 最佳实践 在设计时就考虑线程安全 利用封装(enc">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-09T10:41:06.066Z">
+<meta property="og:updated_time" content="2018-07-12T10:11:44.735Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发笔记3">
 <meta name="twitter:description" content="Java并发编程实战第二章 线程安全编写线程安全代码的核心是管理对状态的访问，尤其共享和可变状态的访问。通过同步协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是synchronized关键词，但是同步(synchronization)这个属于还包括:volatile变量、显式(explicit)锁和原子(atomic)变量。 最佳实践 在设计时就考虑线程安全 利用封装(enc">
@@ -347,7 +347,18 @@
 <li>在设计时就考虑线程安全</li>
 <li>利用封装(encapsulation)，不可变性(immutablility)，清晰指定不可变量(invariants)是比较好的实践。</li>
 </ol>
-<h3 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h3>
+<h3 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h3><ol>
+<li>所有线程安全合理定义的核心都是<em>正确性</em>。<em>正确性</em> 意味着类符合其规范，一个良好的规范定义了约束对象状态的<em>不变量</em>和描述操作结果的<em>后置条件</em>。<blockquote>
+<p>线程安全的定义: 如果一个类在多个线程访问时正确运行，则它是<em>线程安全</em>的，不管运行时环境如何调度或者交错这些线程的执行，并且在调用代码部分没有多余的同步和协调。</p>
+</blockquote>
+</li>
+<li>线程安全类会封装任何需要的同步，从而使客户不必在自己实现。</li>
+<li>无状态(<code>stateless</code>)的类永远是线程安全的</li>
+</ol>
+<h3 id="2-2-原子性"><a href="#2-2-原子性" class="headerlink" title="2.2 原子性"></a>2.2 原子性</h3><h4 id="2-2-1-Race-Condition"><a href="#2-2-1-Race-Condition" class="headerlink" title="2.2.1 Race Condition"></a>2.2.1 <code>Race Condition</code></h4><ol>
+<li>自增操作是一个<code>read-modify-write</code>操作，分三步完成而非一步，所以是非原子操作。</li>
+</ol>
+
       
     </div>
     
@@ -523,7 +534,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发编程实战第二章-线程安全"><span class="nav-number">1.</span> <span class="nav-text">Java并发编程实战第二章 线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-number">1.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-什么是线程安全"><span class="nav-number">2.</span> <span class="nav-text">2.1 什么是线程安全</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发编程实战第二章-线程安全"><span class="nav-number">1.</span> <span class="nav-text">Java并发编程实战第二章 线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-number">1.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-什么是线程安全"><span class="nav-number">2.</span> <span class="nav-text">2.1 什么是线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-原子性"><span class="nav-number">3.</span> <span class="nav-text">2.2 原子性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Race-Condition"><span class="nav-number">3.1.</span> <span class="nav-text">2.2.1 Race Condition</span></a></li></ol></li></ol></div>
             
 
           </div>

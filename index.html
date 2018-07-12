@@ -347,7 +347,18 @@
 <li>在设计时就考虑线程安全</li>
 <li>利用封装(encapsulation)，不可变性(immutablility)，清晰指定不可变量(invariants)是比较好的实践。</li>
 </ol>
-<h3 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h3>
+<h3 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h3><ol>
+<li>所有线程安全合理定义的核心都是<em>正确性</em>。<em>正确性</em> 意味着类符合其规范，一个良好的规范定义了约束对象状态的<em>不变量</em>和描述操作结果的<em>后置条件</em>。<blockquote>
+<p>线程安全的定义: 如果一个类在多个线程访问时正确运行，则它是<em>线程安全</em>的，不管运行时环境如何调度或者交错这些线程的执行，并且在调用代码部分没有多余的同步和协调。</p>
+</blockquote>
+</li>
+<li>线程安全类会封装任何需要的同步，从而使客户不必在自己实现。</li>
+<li>无状态(<code>stateless</code>)的类永远是线程安全的</li>
+</ol>
+<h3 id="2-2-原子性"><a href="#2-2-原子性" class="headerlink" title="2.2 原子性"></a>2.2 原子性</h3><h4 id="2-2-1-Race-Condition"><a href="#2-2-1-Race-Condition" class="headerlink" title="2.2.1 Race Condition"></a>2.2.1 <code>Race Condition</code></h4><ol>
+<li>自增操作是一个<code>read-modify-write</code>操作，分三步完成而非一步，所以是非原子操作。</li>
+</ol>
+
           
         
       
