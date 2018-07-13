@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="鹤舞云端">
 <meta property="og:description" content="Java并发编程实战第二章 线程安全编写线程安全代码的核心是管理对状态的访问，尤其共享和可变状态的访问。通过同步协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是synchronized关键词，但是同步(synchronization)这个属于还包括:volatile变量、显式(explicit)锁和原子(atomic)变量。 最佳实践 在设计时就考虑线程安全 利用封装(enc">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-13T01:29:02.154Z">
+<meta property="og:updated_time" content="2018-07-13T10:46:53.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发笔记3">
 <meta name="twitter:description" content="Java并发编程实战第二章 线程安全编写线程安全代码的核心是管理对状态的访问，尤其共享和可变状态的访问。通过同步协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是synchronized关键词，但是同步(synchronization)这个属于还包括:volatile变量、显式(explicit)锁和原子(atomic)变量。 最佳实践 在设计时就考虑线程安全 利用封装(enc">
@@ -372,6 +372,21 @@
 <p>在实践中，要尽量使用线程安全对象来管理类的状态。</p>
 </blockquote>
 <h3 id="2-3-加锁"><a href="#2-3-加锁" class="headerlink" title="2.3 加锁"></a>2.3 加锁</h3><h4 id="Intrisic-Lock-固有锁"><a href="#Intrisic-Lock-固有锁" class="headerlink" title="Intrisic Lock(固有锁)"></a>Intrisic Lock(固有锁)</h4><p><code>synchronized</code>是Java内置固有锁，即可以修饰方法，又可以修饰代码块。修饰方法时默认由方法所属对象作为<code>intrisic locks</code>或者<code>monitor locks</code></p>
+<h4 id="可重入性-Reentrancy"><a href="#可重入性-Reentrancy" class="headerlink" title="可重入性(Reentrancy)"></a>可重入性(Reentrancy)</h4><ol>
+<li>可重入意味着锁被以线程而非以调用为单位获取。</li>
+<li>可重入通过把锁与获取计数器和其所属线程关联来实现:计数器为0时锁是unheld状态的，当一个线程获取一个unheld状态的锁后，计数器加1，如果此线程的再一次(如调用了另一个相同锁的方法)调用，则计数器加1，而非被阻塞；当线程离开<code>synchronized</code>块之后,计数器减1.</li>
+</ol>
+<h3 id="2-4-使用锁保护状态"><a href="#2-4-使用锁保护状态" class="headerlink" title="2.4 使用锁保护状态"></a>2.4 使用锁保护状态</h3><ol>
+<li>每个共享和可变的状态变量都应该被一个且仅一个锁保护，从而使维护人员知道是哪一个锁。</li>
+<li>给一个对象内的所有可变量加锁是一个惯例。但是这个加锁协议很容易因为添加一个新的方法或者<code>code path</code>被破坏。比如一个单线程程序引入一个异步的<code>TimerTask</code></li>
+<li>对每个包含多个变量的不变性条件(<code>invariants</code>)，其中涉及的所有变量都需要由同一个锁保护。</li>
+<li>即使对象中的所有方法都是原子的，也不能保证<em>复合操作</em>是原子的，还需要额外的加锁机制。此外每个方法都作为同步方法还容易引起<em>活跃性(Liveness)</em> 问题和 <em>性能问题</em>。</li>
+</ol>
+<h3 id="2-5-活跃性和性能问题"><a href="#2-5-活跃性和性能问题" class="headerlink" title="2.5 活跃性和性能问题"></a>2.5 活跃性和性能问题</h3><ol>
+<li>应该在保证原子性的情况下缩小同步的范围。</li>
+<li>占有锁的时间过长可能会导致活跃性问题和性能问题</li>
+<li>避免在长时计算或者不能快速结束如网络或者控制台IO等操作时保持锁。</li>
+</ol>
 
       
     </div>
@@ -548,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发编程实战第二章-线程安全"><span class="nav-number">1.</span> <span class="nav-text">Java并发编程实战第二章 线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-number">1.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-什么是线程安全"><span class="nav-number">2.</span> <span class="nav-text">2.1 什么是线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-原子性"><span class="nav-number">3.</span> <span class="nav-text">2.2 原子性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Race-Condition"><span class="nav-number">3.1.</span> <span class="nav-text">2.2.1 Race Condition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子操作"><span class="nav-number">3.2.</span> <span class="nav-text">原子操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子变量"><span class="nav-number">3.3.</span> <span class="nav-text">原子变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-加锁"><span class="nav-number">4.</span> <span class="nav-text">2.3 加锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Intrisic-Lock-固有锁"><span class="nav-number">4.1.</span> <span class="nav-text">Intrisic Lock(固有锁)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发编程实战第二章-线程安全"><span class="nav-number">1.</span> <span class="nav-text">Java并发编程实战第二章 线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-number">1.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-什么是线程安全"><span class="nav-number">2.</span> <span class="nav-text">2.1 什么是线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-原子性"><span class="nav-number">3.</span> <span class="nav-text">2.2 原子性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Race-Condition"><span class="nav-number">3.1.</span> <span class="nav-text">2.2.1 Race Condition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子操作"><span class="nav-number">3.2.</span> <span class="nav-text">原子操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子变量"><span class="nav-number">3.3.</span> <span class="nav-text">原子变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-加锁"><span class="nav-number">4.</span> <span class="nav-text">2.3 加锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Intrisic-Lock-固有锁"><span class="nav-number">4.1.</span> <span class="nav-text">Intrisic Lock(固有锁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可重入性-Reentrancy"><span class="nav-number">4.2.</span> <span class="nav-text">可重入性(Reentrancy)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-使用锁保护状态"><span class="nav-number">5.</span> <span class="nav-text">2.4 使用锁保护状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-活跃性和性能问题"><span class="nav-number">6.</span> <span class="nav-text">2.5 活跃性和性能问题</span></a></li></ol></div>
             
 
           </div>
