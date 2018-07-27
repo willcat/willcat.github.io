@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,编程语言,读书笔记,Java并发编程实战," />
+  <meta name="keywords" content="读书笔记,Redis,Redis实战,NoSql," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Java并发编程实战第二章 线程安全编写线程安全代码的核心是管理对状态的访问，尤其共享和可变状态的访问。通过同步协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是synchronized关键词，但是同步(synchronization)这个属于还包括:volatile变量、显式(explicit)锁和原子(atomic)变量。 最佳实践 在设计时就考虑线程安全 利用封装(enc">
-<meta name="keywords" content="Java,编程语言,读书笔记,Java并发编程实战">
+<meta name="description" content="redis数据结构概览，及部分常用命令字符串   存储的值 操作 说明     字符串、整数、浮点数 set get del 支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作    列表   命令 行为     RPUSH 将给定值push到列表最右边   LPUSH 将给定值push到列表最左边   LINDEX 获取列表对应位置上的单个元素,左起为0   LPOP 从列表最左边">
+<meta name="keywords" content="读书笔记,Redis,Redis实战,NoSql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java并发笔记3">
-<meta property="og:url" content="http://yoursite.com/2018/07/09/Java并发笔记3/index.html">
+<meta property="og:title" content="redis笔记1">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/redis笔记1/index.html">
 <meta property="og:site_name" content="鹤舞云端">
-<meta property="og:description" content="Java并发编程实战第二章 线程安全编写线程安全代码的核心是管理对状态的访问，尤其共享和可变状态的访问。通过同步协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是synchronized关键词，但是同步(synchronization)这个属于还包括:volatile变量、显式(explicit)锁和原子(atomic)变量。 最佳实践 在设计时就考虑线程安全 利用封装(enc">
+<meta property="og:description" content="redis数据结构概览，及部分常用命令字符串   存储的值 操作 说明     字符串、整数、浮点数 set get del 支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作    列表   命令 行为     RPUSH 将给定值push到列表最右边   LPUSH 将给定值push到列表最左边   LINDEX 获取列表对应位置上的单个元素,左起为0   LPOP 从列表最左边">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-13T10:46:53.740Z">
+<meta property="og:updated_time" content="2018-07-25T08:46:22.065Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java并发笔记3">
-<meta name="twitter:description" content="Java并发编程实战第二章 线程安全编写线程安全代码的核心是管理对状态的访问，尤其共享和可变状态的访问。通过同步协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是synchronized关键词，但是同步(synchronization)这个属于还包括:volatile变量、显式(explicit)锁和原子(atomic)变量。 最佳实践 在设计时就考虑线程安全 利用封装(enc">
+<meta name="twitter:title" content="redis笔记1">
+<meta name="twitter:description" content="redis数据结构概览，及部分常用命令字符串   存储的值 操作 说明     字符串、整数、浮点数 set get del 支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作    列表   命令 行为     RPUSH 将给定值push到列表最右边   LPUSH 将给定值push到列表最左边   LINDEX 获取列表对应位置上的单个元素,左起为0   LPOP 从列表最左边">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/09/Java并发笔记3/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/redis笔记1/"/>
 
 
 
 
 
-  <title>Java并发笔记3 | 鹤舞云端</title>
+  <title>redis笔记1 | 鹤舞云端</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/Java并发笔记3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/redis笔记1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Willcat">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java并发笔记3</h1>
+          <h1 class="post-title" itemprop="name headline">redis笔记1</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T14:15:15+08:00">
-                2018-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T09:35:50+08:00">
+                2018-07-25
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程语言/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
+                  <a href="/categories/NoSql/" itemprop="url" rel="index">
+                    <span itemprop="name">NoSql</span>
                   </a>
                 </span>
 
@@ -342,50 +342,139 @@
       
 
       
-        <h3 id="Java并发编程实战第二章-线程安全"><a href="#Java并发编程实战第二章-线程安全" class="headerlink" title="Java并发编程实战第二章 线程安全"></a>Java并发编程实战第二章 线程安全</h3><p>编写线程安全代码的核心是管理对状态的访问，尤其<em>共享</em>和<em>可变</em>状态的访问。通过<strong>同步</strong>协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是<code>synchronized</code>关键词，但是同步(synchronization)这个属于还包括:<code>volatile</code>变量、显式(explicit)锁和原子(atomic)变量。</p>
-<h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><ol>
-<li>在设计时就考虑线程安全</li>
-<li>利用封装(encapsulation)，不可变性(immutablility)，清晰指定不可变量(invariants)是比较好的实践。</li>
-</ol>
-<h3 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h3><ol>
-<li>所有线程安全合理定义的核心都是<em>正确性</em>。<em>正确性</em> 意味着类符合其规范，一个良好的规范定义了约束对象状态的<em>不变量</em>和描述操作结果的<em>后置条件</em>。<blockquote>
-<p>线程安全的定义: 如果一个类在多个线程访问时正确运行，则它是<em>线程安全</em>的，不管运行时环境如何调度或者交错这些线程的执行，并且在调用代码部分没有多余的同步和协调。</p>
-</blockquote>
-</li>
-<li>线程安全类会封装任何需要的同步，从而使客户不必在自己实现。</li>
-<li>无状态(<code>stateless</code>)的类永远是线程安全的</li>
-</ol>
-<h3 id="2-2-原子性"><a href="#2-2-原子性" class="headerlink" title="2.2 原子性"></a>2.2 原子性</h3><h4 id="2-2-1-Race-Condition"><a href="#2-2-1-Race-Condition" class="headerlink" title="2.2.1 Race Condition"></a>2.2.1 <code>Race Condition</code></h4><blockquote>
-<p>一个<em>竞争条件</em>会在计算正确性依赖于运行时中多线程相对时间或者交错出现。换句话说，正确答案取决于幸运时机。大部分的竞争条件的类型为<code>check-then-act</code>型，此时可能会有陈旧观察用于决定下一步做什么。</p>
-</blockquote>
-<p>例子：</p>
-<ol>
-<li>自增操作是一个<code>read-modify-write</code>操作，分三步完成而非一步，所以是非原子操作。</li>
-<li>星巴克约会的例子</li>
-<li><code>lazy initialization</code>的例子</li>
-</ol>
-<h4 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h4><blockquote>
-<p>如果从一个执行A复合操作的线程的角度来看，执行B复合操作的线程要么将B所有操作执行完，要么完全不执行B系列的任何操作，那么，A和B是对彼此来说是原子的。一个<em>原子操作</em>是指与包括自己在内的所有在同一状态上的操作集都是互为原子操作的操作集。</p>
-</blockquote>
-<h4 id="原子变量"><a href="#原子变量" class="headerlink" title="原子变量"></a>原子变量</h4><p>在<code>java.util.concurrent.atomic</code>包下有很多原子变量，可以执行原子操作。如<code>AtomicLong</code>的实例方法<code>incrementAndGet()</code>。对于无状态的类添加一个线程安全的属性，则这个类仍然是线程安全的，但是如果添加的多余一个，则不保证这个类依然是线程安全的类。</p>
-<blockquote>
-<p>在实践中，要尽量使用线程安全对象来管理类的状态。</p>
-</blockquote>
-<h3 id="2-3-加锁"><a href="#2-3-加锁" class="headerlink" title="2.3 加锁"></a>2.3 加锁</h3><h4 id="Intrisic-Lock-固有锁"><a href="#Intrisic-Lock-固有锁" class="headerlink" title="Intrisic Lock(固有锁)"></a>Intrisic Lock(固有锁)</h4><p><code>synchronized</code>是Java内置固有锁，即可以修饰方法，又可以修饰代码块。修饰方法时默认由方法所属对象作为<code>intrisic locks</code>或者<code>monitor locks</code></p>
-<h4 id="可重入性-Reentrancy"><a href="#可重入性-Reentrancy" class="headerlink" title="可重入性(Reentrancy)"></a>可重入性(Reentrancy)</h4><ol>
-<li>可重入意味着锁被以线程而非以调用为单位获取。</li>
-<li>可重入通过把锁与获取计数器和其所属线程关联来实现:计数器为0时锁是unheld状态的，当一个线程获取一个unheld状态的锁后，计数器加1，如果此线程的再一次(如调用了另一个相同锁的方法)调用，则计数器加1，而非被阻塞；当线程离开<code>synchronized</code>块之后,计数器减1.</li>
-</ol>
-<h3 id="2-4-使用锁保护状态"><a href="#2-4-使用锁保护状态" class="headerlink" title="2.4 使用锁保护状态"></a>2.4 使用锁保护状态</h3><ol>
-<li>每个共享和可变的状态变量都应该被一个且仅一个锁保护，从而使维护人员知道是哪一个锁。</li>
-<li>给一个对象内的所有可变量加锁是一个惯例。但是这个加锁协议很容易因为添加一个新的方法或者<code>code path</code>被破坏。比如一个单线程程序引入一个异步的<code>TimerTask</code></li>
-<li>对每个包含多个变量的不变性条件(<code>invariants</code>)，其中涉及的所有变量都需要由同一个锁保护。</li>
-<li>即使对象中的所有方法都是原子的，也不能保证<em>复合操作</em>是原子的，还需要额外的加锁机制。此外每个方法都作为同步方法还容易引起<em>活跃性(Liveness)</em> 问题和 <em>性能问题</em>。</li>
-</ol>
-<h3 id="2-5-活跃性和性能问题"><a href="#2-5-活跃性和性能问题" class="headerlink" title="2.5 活跃性和性能问题"></a>2.5 活跃性和性能问题</h3><ol>
-<li>应该在保证原子性的情况下缩小同步的范围。</li>
-<li>占有锁的时间过长可能会导致活跃性问题和性能问题</li>
-<li>避免在长时计算或者不能快速结束如网络或者控制台IO等操作时保持锁。</li>
+        <h3 id="redis数据结构概览，及部分常用命令"><a href="#redis数据结构概览，及部分常用命令" class="headerlink" title="redis数据结构概览，及部分常用命令"></a>redis数据结构概览，及部分常用命令</h3><h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><table>
+<thead>
+<tr>
+<th>存储的值</th>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符串、整数、浮点数</td>
+<td>set get del</td>
+<td>支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作</td>
+</tr>
+</tbody>
+</table>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPUSH</td>
+<td>将给定值push到列表最右边</td>
+</tr>
+<tr>
+<td>LPUSH</td>
+<td>将给定值push到列表最左边</td>
+</tr>
+<tr>
+<td>LINDEX</td>
+<td>获取列表对应位置上的单个元素,左起为0</td>
+</tr>
+<tr>
+<td>LPOP</td>
+<td>从列表最左边弹出一个元素，并且返回该元素的值</td>
+</tr>
+</tbody>
+</table>
+<h4 id="集合-set"><a href="#集合-set" class="headerlink" title="集合(set)"></a>集合(set)</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SADD</td>
+<td>添加元素到集合，重复元素不会添加</td>
+</tr>
+<tr>
+<td>SREM</td>
+<td>从集合中删除元素</td>
+</tr>
+<tr>
+<td>SISMEMBER</td>
+<td>查看元素是否在集合中</td>
+</tr>
+<tr>
+<td>SMEMBERS</td>
+<td>查看集合中所有元素，如果元素多会很慢,<strong>慎用</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="散列-hash"><a href="#散列-hash" class="headerlink" title="散列(hash)"></a>散列(hash)</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HSET</td>
+<td>添加元素到hash,如果key重复则覆盖旧的value</td>
+</tr>
+<tr>
+<td>HDEL</td>
+<td>从hash中删除元素</td>
+</tr>
+<tr>
+<td>HGET</td>
+<td>读取指定元素的值</td>
+</tr>
+<tr>
+<td>HGETALL</td>
+<td>查看集合中所有元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="有序集合-zset"><a href="#有序集合-zset" class="headerlink" title="有序集合(zset)"></a>有序集合(zset)</h4><p>有序集合类似散列也是键值对，不过值是<code>score</code>，而且必须为<strong>浮点数</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZADD</td>
+<td>添加元素到</td>
+<td>ZADD key score member</td>
+</tr>
+<tr>
+<td>ZREM</td>
+<td>删除元素</td>
+<td></td>
+</tr>
+<tr>
+<td>ZRANGE</td>
+<td>读取指定位置范围的member</td>
+<td>ZRANGE key start stop [WITHSCORES] ,位置都是闭合的</td>
+</tr>
+<tr>
+<td>ZRANGEBYSCORE</td>
+<td>读取指定score范围的member</td>
+<td>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据结构操作进阶"><a href="#数据结构操作进阶" class="headerlink" title="数据结构操作进阶"></a>数据结构操作进阶</h3><h4 id="字符串-1"><a href="#字符串-1" class="headerlink" title="字符串"></a>字符串</h4><ol>
+<li>valued的整数类型的取值范围与系统的长整数一致，32位系统上就是32位有符号整数，在64位系统上就是64位有符号整数。<h4 id="发布和订阅"><a href="#发布和订阅" class="headerlink" title="发布和订阅"></a>发布和订阅</h4><code>PUBLISH</code><br><code>SUBSCRIBE</code><h4 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h4>能同时适用三种数据的操作<h4 id="基本的redis事务"><a href="#基本的redis事务" class="headerlink" title="基本的redis事务"></a>基本的redis事务</h4>用法:<br><code>MULTI
+cmd1
+cmd2
+..
+EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"></a>过期</h4></li>
+<li>redis不能为键里单个元素设置过期时间。<br>|命令 | 行为 |示例|<br>|—-|—-|<br>|PESIST|移除键的过期时间|<br>|TTL|查看键还有多久过期时间，单位是秒|<br>|PTTL|查看键还有多久过期时间,单位是毫秒|</li>
 </ol>
 
       
@@ -404,13 +493,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
-          
-            <a href="/tags/编程语言/" rel="tag"># 编程语言</a>
-          
             <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
           
-            <a href="/tags/Java并发编程实战/" rel="tag"># Java并发编程实战</a>
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+            <a href="/tags/Redis实战/" rel="tag"># Redis实战</a>
+          
+            <a href="/tags/NoSql/" rel="tag"># NoSql</a>
           
         </div>
       
@@ -423,8 +512,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/05/Effective-Java读书笔记1/" rel="next" title="Effective Java读书笔记1">
-                <i class="fa fa-chevron-left"></i> Effective Java读书笔记1
+              <a href="/2018/07/17/Java并发笔记4/" rel="next" title="Java并发笔记4">
+                <i class="fa fa-chevron-left"></i> Java并发笔记4
               </a>
             
           </div>
@@ -432,10 +521,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/17/Java并发笔记4/" rel="prev" title="Java并发笔记4">
-                Java并发笔记4 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -567,7 +652,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java并发编程实战第二章-线程安全"><span class="nav-number">1.</span> <span class="nav-text">Java并发编程实战第二章 线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-number">1.1.</span> <span class="nav-text">最佳实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-什么是线程安全"><span class="nav-number">2.</span> <span class="nav-text">2.1 什么是线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-原子性"><span class="nav-number">3.</span> <span class="nav-text">2.2 原子性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Race-Condition"><span class="nav-number">3.1.</span> <span class="nav-text">2.2.1 Race Condition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子操作"><span class="nav-number">3.2.</span> <span class="nav-text">原子操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子变量"><span class="nav-number">3.3.</span> <span class="nav-text">原子变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-加锁"><span class="nav-number">4.</span> <span class="nav-text">2.3 加锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Intrisic-Lock-固有锁"><span class="nav-number">4.1.</span> <span class="nav-text">Intrisic Lock(固有锁)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可重入性-Reentrancy"><span class="nav-number">4.2.</span> <span class="nav-text">可重入性(Reentrancy)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-使用锁保护状态"><span class="nav-number">5.</span> <span class="nav-text">2.4 使用锁保护状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-活跃性和性能问题"><span class="nav-number">6.</span> <span class="nav-text">2.5 活跃性和性能问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis数据结构概览，及部分常用命令"><span class="nav-number">1.</span> <span class="nav-text">redis数据结构概览，及部分常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串"><span class="nav-number">1.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列表"><span class="nav-number">1.2.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合-set"><span class="nav-number">1.3.</span> <span class="nav-text">集合(set)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#散列-hash"><span class="nav-number">1.4.</span> <span class="nav-text">散列(hash)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有序集合-zset"><span class="nav-number">1.5.</span> <span class="nav-text">有序集合(zset)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构操作进阶"><span class="nav-number">2.</span> <span class="nav-text">数据结构操作进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串-1"><span class="nav-number">2.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布和订阅"><span class="nav-number">2.2.</span> <span class="nav-text">发布和订阅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sort"><span class="nav-number">2.3.</span> <span class="nav-text">Sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本的redis事务"><span class="nav-number">2.4.</span> <span class="nav-text">基本的redis事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过期"><span class="nav-number">2.5.</span> <span class="nav-text">过期</span></a></li></ol></li></ol></div>
             
 
           </div>

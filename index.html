@@ -249,6 +249,281 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/redis笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/25/redis笔记1/" itemprop="url">redis笔记1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T09:35:50+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NoSql/" itemprop="url" rel="index">
+                    <span itemprop="name">NoSql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="redis数据结构概览，及部分常用命令"><a href="#redis数据结构概览，及部分常用命令" class="headerlink" title="redis数据结构概览，及部分常用命令"></a>redis数据结构概览，及部分常用命令</h3><h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><table>
+<thead>
+<tr>
+<th>存储的值</th>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符串、整数、浮点数</td>
+<td>set get del</td>
+<td>支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作</td>
+</tr>
+</tbody>
+</table>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPUSH</td>
+<td>将给定值push到列表最右边</td>
+</tr>
+<tr>
+<td>LPUSH</td>
+<td>将给定值push到列表最左边</td>
+</tr>
+<tr>
+<td>LINDEX</td>
+<td>获取列表对应位置上的单个元素,左起为0</td>
+</tr>
+<tr>
+<td>LPOP</td>
+<td>从列表最左边弹出一个元素，并且返回该元素的值</td>
+</tr>
+</tbody>
+</table>
+<h4 id="集合-set"><a href="#集合-set" class="headerlink" title="集合(set)"></a>集合(set)</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SADD</td>
+<td>添加元素到集合，重复元素不会添加</td>
+</tr>
+<tr>
+<td>SREM</td>
+<td>从集合中删除元素</td>
+</tr>
+<tr>
+<td>SISMEMBER</td>
+<td>查看元素是否在集合中</td>
+</tr>
+<tr>
+<td>SMEMBERS</td>
+<td>查看集合中所有元素，如果元素多会很慢,<strong>慎用</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="散列-hash"><a href="#散列-hash" class="headerlink" title="散列(hash)"></a>散列(hash)</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HSET</td>
+<td>添加元素到hash,如果key重复则覆盖旧的value</td>
+</tr>
+<tr>
+<td>HDEL</td>
+<td>从hash中删除元素</td>
+</tr>
+<tr>
+<td>HGET</td>
+<td>读取指定元素的值</td>
+</tr>
+<tr>
+<td>HGETALL</td>
+<td>查看集合中所有元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="有序集合-zset"><a href="#有序集合-zset" class="headerlink" title="有序集合(zset)"></a>有序集合(zset)</h4><p>有序集合类似散列也是键值对，不过值是<code>score</code>，而且必须为<strong>浮点数</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZADD</td>
+<td>添加元素到</td>
+<td>ZADD key score member</td>
+</tr>
+<tr>
+<td>ZREM</td>
+<td>删除元素</td>
+<td></td>
+</tr>
+<tr>
+<td>ZRANGE</td>
+<td>读取指定位置范围的member</td>
+<td>ZRANGE key start stop [WITHSCORES] ,位置都是闭合的</td>
+</tr>
+<tr>
+<td>ZRANGEBYSCORE</td>
+<td>读取指定score范围的member</td>
+<td>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据结构操作进阶"><a href="#数据结构操作进阶" class="headerlink" title="数据结构操作进阶"></a>数据结构操作进阶</h3><h4 id="字符串-1"><a href="#字符串-1" class="headerlink" title="字符串"></a>字符串</h4><ol>
+<li>valued的整数类型的取值范围与系统的长整数一致，32位系统上就是32位有符号整数，在64位系统上就是64位有符号整数。<h4 id="发布和订阅"><a href="#发布和订阅" class="headerlink" title="发布和订阅"></a>发布和订阅</h4><code>PUBLISH</code><br><code>SUBSCRIBE</code><h4 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h4>能同时适用三种数据的操作<h4 id="基本的redis事务"><a href="#基本的redis事务" class="headerlink" title="基本的redis事务"></a>基本的redis事务</h4>用法:<br><code>MULTI
+cmd1
+cmd2
+..
+EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"></a>过期</h4></li>
+<li>redis不能为键里单个元素设置过期时间。<br>|命令 | 行为 |示例|<br>|—-|—-|<br>|PESIST|移除键的过期时间|<br>|TTL|查看键还有多久过期时间，单位是秒|<br>|PTTL|查看键还有多久过期时间,单位是毫秒|</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/17/Java并发笔记4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1666,7 +1941,7 @@ pool.shutdown();</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1677,7 +1952,7 @@ pool.shutdown();</code></p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1688,7 +1963,7 @@ pool.shutdown();</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
