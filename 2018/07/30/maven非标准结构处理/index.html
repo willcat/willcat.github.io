@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="生成类的单元测试类到指定路径。生成类的单元测试类到指定路径 非标准maven结构指定test目录[http://primitive123.iteye.com/blog/1933371] maven build配置。怎么打包其他的非标准目录。如某个项目的sql脚本目录">
+<meta name="description" content="maven build配置1. 非标准maven结构指定test目录123456789&amp;lt;build&amp;gt;    //...    &amp;lt;directory&amp;gt;target&amp;lt;/directory&amp;gt;  // 工作目录      &amp;lt;sourceDirectory&amp;gt;src&amp;lt;/sourceDirectory&amp;gt; // 源码目录      &amp;lt;scriptS">
 <meta name="keywords" content="maven,项目管理,构建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="maven非标准结构处理">
 <meta property="og:url" content="http://yoursite.com/2018/07/30/maven非标准结构处理/index.html">
 <meta property="og:site_name" content="鹤舞云端">
-<meta property="og:description" content="生成类的单元测试类到指定路径。生成类的单元测试类到指定路径 非标准maven结构指定test目录[http://primitive123.iteye.com/blog/1933371] maven build配置。怎么打包其他的非标准目录。如某个项目的sql脚本目录">
+<meta property="og:description" content="maven build配置1. 非标准maven结构指定test目录123456789&amp;lt;build&amp;gt;    //...    &amp;lt;directory&amp;gt;target&amp;lt;/directory&amp;gt;  // 工作目录      &amp;lt;sourceDirectory&amp;gt;src&amp;lt;/sourceDirectory&amp;gt; // 源码目录      &amp;lt;scriptS">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-30T06:13:45.572Z">
+<meta property="og:updated_time" content="2018-07-30T07:40:58.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven非标准结构处理">
-<meta name="twitter:description" content="生成类的单元测试类到指定路径。生成类的单元测试类到指定路径 非标准maven结构指定test目录[http://primitive123.iteye.com/blog/1933371] maven build配置。怎么打包其他的非标准目录。如某个项目的sql脚本目录">
+<meta name="twitter:description" content="maven build配置1. 非标准maven结构指定test目录123456789&amp;lt;build&amp;gt;    //...    &amp;lt;directory&amp;gt;target&amp;lt;/directory&amp;gt;  // 工作目录      &amp;lt;sourceDirectory&amp;gt;src&amp;lt;/sourceDirectory&amp;gt; // 源码目录      &amp;lt;scriptS">
 
 
 
@@ -342,9 +342,11 @@
       
 
       
-        <h3 id="生成类的单元测试类到指定路径。"><a href="#生成类的单元测试类到指定路径。" class="headerlink" title="生成类的单元测试类到指定路径。"></a>生成类的单元测试类到指定路径。</h3><p><a href="https://www.cnblogs.com/xinziyublog/p/5694420.html" target="_blank" rel="noopener">生成类的单元测试类到指定路径</a></p>
-<h3 id="非标准maven结构指定test目录"><a href="#非标准maven结构指定test目录" class="headerlink" title="非标准maven结构指定test目录"></a>非标准maven结构指定test目录</h3><p>[<a href="http://primitive123.iteye.com/blog/1933371]" target="_blank" rel="noopener">http://primitive123.iteye.com/blog/1933371]</a></p>
-<h3 id="maven-build配置。"><a href="#maven-build配置。" class="headerlink" title="maven build配置。"></a>maven build配置。</h3><h3 id="怎么打包其他的非标准目录。如某个项目的sql脚本目录"><a href="#怎么打包其他的非标准目录。如某个项目的sql脚本目录" class="headerlink" title="怎么打包其他的非标准目录。如某个项目的sql脚本目录"></a>怎么打包其他的非标准目录。如某个项目的sql脚本目录</h3>
+        <h3 id="maven-build配置"><a href="#maven-build配置" class="headerlink" title="maven build配置"></a>maven build配置</h3><h4 id="1-非标准maven结构指定test目录"><a href="#1-非标准maven结构指定test目录" class="headerlink" title="1. 非标准maven结构指定test目录"></a>1. 非标准maven结构指定test目录</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    &lt;directory&gt;target&lt;/directory&gt;  // 工作目录  </span><br><span class="line">    &lt;sourceDirectory&gt;src&lt;/sourceDirectory&gt; // 源码目录  </span><br><span class="line">    &lt;scriptSourceDirectory&gt;js/scripts&lt;/scriptSourceDirectory&gt; //脚本目录  </span><br><span class="line">    &lt;testSourceDirectory&gt;test&lt;/testSourceDirectory&gt; // 测试目录  </span><br><span class="line">    &lt;outputDirectory&gt;target/classes&lt;/outputDirectory&gt; // 源码编译目录，被工作目录包含  </span><br><span class="line">    &lt;testOutputDirectory&gt;target/test/classes&lt;/testOutputDirectory&gt;// 测试源码编译目录，被工作目录包含  </span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-生成类的单元测试类到指定路径"><a href="#2-生成类的单元测试类到指定路径" class="headerlink" title="2. 生成类的单元测试类到指定路径"></a>2. 生成类的单元测试类到指定路径</h4><p><a href="https://www.cnblogs.com/xinziyublog/p/5694420.html" target="_blank" rel="noopener">idea生成类的单元测试类到指定路径</a></p>
+<h4 id="3-怎么打包其他的非标准目录。如某个项目根目录下的my-resource资源目录"><a href="#3-怎么打包其他的非标准目录。如某个项目根目录下的my-resource资源目录" class="headerlink" title="3. 怎么打包其他的非标准目录。如某个项目根目录下的my-resource资源目录"></a>3. 怎么打包其他的非标准目录。如某个项目根目录下的my-resource资源目录</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    ...</span><br><span class="line">    &lt;resources&gt;</span><br><span class="line">        &lt;resource&gt;</span><br><span class="line">            &lt;targetPath&gt;my-resource&lt;/targetPath&gt;</span><br><span class="line">            &lt;directory&gt;my-resource&lt;/directory&gt;</span><br><span class="line">            &lt;filtering&gt;true&lt;/filtering&gt;//此选项是用来替换变量的，参考代码后的文档</span><br><span class="line">        &lt;/resource&gt;</span><br><span class="line">    &lt;/resources&gt;</span><br><span class="line">    ...</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html" target="_blank" rel="noopener">maven resource filtering</a></p>
+
       
     </div>
     
@@ -518,7 +520,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成类的单元测试类到指定路径。"><span class="nav-number">1.</span> <span class="nav-text">生成类的单元测试类到指定路径。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非标准maven结构指定test目录"><span class="nav-number">2.</span> <span class="nav-text">非标准maven结构指定test目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven-build配置。"><span class="nav-number">3.</span> <span class="nav-text">maven build配置。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么打包其他的非标准目录。如某个项目的sql脚本目录"><span class="nav-number">4.</span> <span class="nav-text">怎么打包其他的非标准目录。如某个项目的sql脚本目录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#maven-build配置"><span class="nav-number">1.</span> <span class="nav-text">maven build配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-非标准maven结构指定test目录"><span class="nav-number">1.1.</span> <span class="nav-text">1. 非标准maven结构指定test目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-生成类的单元测试类到指定路径"><span class="nav-number">1.2.</span> <span class="nav-text">2. 生成类的单元测试类到指定路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-怎么打包其他的非标准目录。如某个项目根目录下的my-resource资源目录"><span class="nav-number">1.3.</span> <span class="nav-text">3. 怎么打包其他的非标准目录。如某个项目根目录下的my-resource资源目录</span></a></li></ol></li></ol></div>
             
 
           </div>
