@@ -249,6 +249,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/maven私服搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/31/maven私服搭建/" itemprop="url">maven私服搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-31T13:16:15+08:00">
+                2018-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-私服搭建的意义"><a href="#1-私服搭建的意义" class="headerlink" title="1. 私服搭建的意义"></a>1. 私服搭建的意义</h3><ol>
+<li>是为了进行仓库的管理和控制，以及减少对中心仓库的访问，减少网络请求提高效率。</li>
+<li>以及为内网用户在无法访问外网却需要使用<code>maven</code>功能</li>
+<li>发布自己的组件到私服</li>
+</ol>
+<h3 id="2-所用工具Nexus-Repository-Manager-NXRM"><a href="#2-所用工具Nexus-Repository-Manager-NXRM" class="headerlink" title="2. 所用工具Nexus Repository Manager (NXRM)"></a>2. 所用工具<code>Nexus Repository Manager (NXRM)</code></h3><p><code>NXRM</code>是一个仓库管理工具，能够实现上节所提到的三种特性，它不仅支持maven还支持其他多种仓库形式:</p>
+<blockquote>
+<p>Repository Formats:</p>
+<ul>
+<li>Maven Repositories with Apache Maven and Other Tools</li>
+<li>.NET Package Repositories with NuGet</li>
+<li>Private Registry for Docker</li>
+<li>Node Packaged Modules and npm Registries</li>
+<li>Bower Repositories</li>
+<li>PyPI Repositories</li>
+<li>Ruby, RubyGems and Gem Repositories</li>
+<li>Raw Repositories, Maven Sites and More</li>
+<li>Git LFS Repositories</li>
+<li>Yum Repositories</li>
+</ul>
+</blockquote>
+<p>另外，<code>NXRM</code>还提供有web用户界面。</p>
+<h3 id="3-NXRM服务器的搭建"><a href="#3-NXRM服务器的搭建" class="headerlink" title="3. NXRM服务器的搭建"></a>3. <code>NXRM</code>服务器的搭建</h3><p><code>NXRM</code>支持<code>*unix</code>,<code>OSX</code>,<code>windows</code>,<code>Docker</code>等多种平台。最新版本是<code>Nexus Repository Manager (NXRM) 3</code>，此次使用的平台及版本为<code>nexus-3.13.0-01-unix</code>。</p>
+<h4 id="3-1-linux下安装"><a href="#3-1-linux下安装" class="headerlink" title="3.1 linux下安装"></a>3.1 linux下安装</h4><p>此次安装和配置主要参考文章:<a href="https://blog.csdn.net/smartbetter/article/details/55116889" target="_blank" rel="noopener">Linux 使用 Nexus3.x 搭建 Maven 私服指南</a></p>
+<p>在安装之前首先参考如下不同之处：</p>
+<h5 id="3-1-1-其中所用版本略有不同"><a href="#3-1-1-其中所用版本略有不同" class="headerlink" title="3.1.1 其中所用版本略有不同"></a>3.1.1 其中所用版本略有不同</h5><ol>
+<li><a href="https://help.sonatype.com/repomanager3/download" target="_blank" rel="noopener">下载页面</a></li>
+<li>选择<code>nexus-3.13.0-01-unix</code>版本，进行下载</li>
+</ol>
+<h5 id="3-1-2-默认8081端口修改"><a href="#3-1-2-默认8081端口修改" class="headerlink" title="3.1.2 默认8081端口修改"></a>3.1.2 默认<code>8081</code>端口修改</h5><ol>
+<li>将<code>$NEXUS_HOME/nexus-3.13.0-01/etc/nexus-default.properties</code>中的<code>application-port=8081</code>修改为想要的端口，如<code>application-port=9001</code></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/maven非标准结构处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1922,173 +2095,6 @@ pool.shutdown();</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/flink系列笔记-一-入门篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Willcat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="鹤舞云端">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/09/flink系列笔记-一-入门篇/" itemprop="url">flink系列笔记(一)入门篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T12:02:56+08:00">
-                2018-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="flink是什么"><a href="#flink是什么" class="headerlink" title="flink是什么"></a>flink是什么</h3><p>Flink是一个基于流计算的分布式引擎。</p>
-<h3 id="flink简要历史"><a href="#flink简要历史" class="headerlink" title="flink简要历史"></a>flink简要历史</h3><p>2010年，一项名为”Stratosphere: Information Management on the Cloud”的研究项目由柏林科技大学、柏林洪堡大学、Hasso-Plattner-Institut Potsdam合作发起。Flink从Stratosphere分布式执行引擎的分支开始，并于2014年3月成为Apache孵化器项目。在2014年12月， Flink被纳入Apache顶级项目</p>
-<h3 id="flink的特性"><a href="#flink的特性" class="headerlink" title="flink的特性"></a>flink的特性</h3><ol>
-<li>一个流式优先的运行时，它同时支持批处理和数据流式程序</li>
-<li>同时支持Java和Scala的优雅、流畅的API</li>
-<li>一个同时支持高吞吐和低延迟的运行时</li>
-<li>支持基于<code>Dataflow</code>模型的事件时间(<code>event time</code>)处理和乱序处理</li>
-<li>跨越不同时间语义(<code>event time</code>,<code>processing time</code>)的灵活的时间窗口(<code>time</code>,<code>count</code>,<code>session</code>,<code>custom triggers</code>)</li>
-<li>确保<code>Exactly Once</code>的容错性</li>
-<li>流式程序中的自然<code>back-pressure</code></li>
-<li>各种类库: 图处理 (batch), Machine Learning (batch), and Complex Event Processing (streaming)</li>
-<li>在DataSet(batch)API中内置对迭代程序(BSP)的支持</li>
-<li>定制内存管理功能，可在内存和外核数据处理算法之间进行高效稳健的切换</li>
-<li>Apache Hadoop MapReduce和Apache Storm的兼容层</li>
-<li>与YARN，HDFS，HBase以及Apache Hadoop生态系统的其他组件集成</li>
-</ol>
-<h3 id="预备概念"><a href="#预备概念" class="headerlink" title="预备概念"></a>预备概念</h3><h4 id="两种数据集类型"><a href="#两种数据集类型" class="headerlink" title="两种数据集类型"></a>两种数据集类型</h4><ul>
-<li>无界数据。持续追加的无限数据集。</li>
-<li>有界数据。确定的、不会改变的数据</li>
-</ul>
-<h4 id="两种执行模型"><a href="#两种执行模型" class="headerlink" title="两种执行模型"></a>两种执行模型</h4><ul>
-<li>Streaming</li>
-<li>Batch</li>
-</ul>
-<h3 id="流处理技术的发展"><a href="#流处理技术的发展" class="headerlink" title="流处理技术的发展"></a>流处理技术的发展</h3><p>连续数据的生产和批处理数据的消耗之间的脱节，虽然使系统构建者的工作变得容易，但是对应用开发者和DevOps团队等需要使用和管理这些系统的使用者来说，这增加了他们管理的复杂度。<br>为了解决这个脱节，一个开路先是<code>Apache Strom</code>项目，该项目在被纳入ASF之前，最初由Nathan Marz和一个叫BackType(后来被Twitter收购)的公司的一个团队发起。Storm带来了低延迟的流处理特性，但是它的实时处理带有折衷即：很难达到高吞吐，而且Storm没有提供通常需要的容错性(correctness)水平。换言之，Storm 缺少在维护正确状态时的<code>exactly-once</code>保证，而且Storm能提供的正确性保证也有很大的开销。</p>
-<h4 id="Lambda架构概览-优缺点"><a href="#Lambda架构概览-优缺点" class="headerlink" title="Lambda架构概览:优缺点"></a>Lambda架构概览:优缺点</h4><p>分布式架构如HDFS和基于批处理的MapReduce实现了可用性的扩展，但是这种方式很难解决低延迟的insight。Storm解决了低延迟的问题，但是还不是一个完整的方案，Storm不能通过exactly-once处理保证状态一致性，而且不太能解决时间处理(event-time processing)。<br>一种融合了这些方案的数据分析的混合观点提供了解决这些挑战的一种途径。这种混合就叫:<code>Lambda架构</code>,通过批处理MapReduce job提供延迟的但是准确的的结果，通过Storm提供一种及时和初步的新结果的视图.\<br>但是 Lambda也有它的问题所在，但一个时间窗口内由于可见的错误导致不准确数据产生时，Lambda架构需要为相同的业务逻辑编码两次，一是批处理系统，一是流式处理系统。<br>Spark Stream使用的是“微批”方法，不能达到完全的实时，不过可以使延迟降到几秒甚至亚秒。但是，作为低延迟/实时的代价，无法将窗口适配自然发生的会话，在表达性方面也遇到一些挑战。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2139,7 +2145,7 @@ pool.shutdown();</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
