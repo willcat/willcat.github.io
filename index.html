@@ -249,6 +249,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/14/Effective-Java-笔记8-避免使用Finalizer和Cleaner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/14/Effective-Java-笔记8-避免使用Finalizer和Cleaner/" itemprop="url">Effective Java 笔记8,避免使用Finalizer和Cleaner</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T13:18:41+08:00">
+                2018-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-被遗弃的finalize"><a href="#1-被遗弃的finalize" class="headerlink" title="1 被遗弃的finalize()"></a>1 被遗弃的<code>finalize()</code></h3><p><code>finalize()</code>是<code>Object</code>的<code>protected</code>方法，子类可以覆盖该方法以实现资源清理工作，GC在回收对象之前调用该方法。但是在<code>Java9</code>中以及被标记为<code>deprecated</code>，取而代之的的是<code>Cleaner</code>对象。</p>
+<p><strong><code>finalizer</code>通常是不可预测，经常是危险的，降低性能且不必要的</strong>，当然<code>Cleaner</code>虽然好一些，但是也是<strong>不可预测地、慢地、通常非必要地</strong></p>
+<h3 id="2-避免使用finalize-或者Cleaner的理由"><a href="#2-避免使用finalize-或者Cleaner的理由" class="headerlink" title="2 避免使用finalize()或者Cleaner的理由"></a>2 避免使用<code>finalize()</code>或者<code>Cleaner</code>的理由</h3><h4 id="2-1-执行时间没有保证"><a href="#2-1-执行时间没有保证" class="headerlink" title="2.1 执行时间没有保证"></a>2.1 执行时间没有保证</h4><p>在对象变为不可达状态和<code>finalizer</code>或者<code>Cleaner</code>执行之间的时间有可能任意长。这意味着不要在<code>finalizer</code>或者<code>Cleaner</code>里执行任何时间敏感的操作，比如关闭文件。</p>
+<p><code>finalizer</code>或者<code>Cleaner</code>执行的迅速性与垃圾回收算法有关，依其实现而各异。</p>
+<p>给一个类提供<code>finalizer</code>可能会任意久地延迟其实例的回收。<code>finalizer</code>的执行线程的优先级很低，最终可能会造成应用有上千个对象在它的<code>finalizer</code>队列里等待被回收。</p>
+<p>不仅不能保证<code>finalizer</code>或者<code>Cleaner</code>及时执行，甚至根本不能保证其执行。因此，你<strong>永远不要依赖一个<code>finalizer</code>或者<code>Cleaner</code>去更新持久化状态</strong>。比如依赖<code>finalizer</code>或者<code>Cleaner</code>释放一个共享状态的持久锁(如数据库)是使整个分布式系统停止运行的好方法^-^~~</p>
+<h4 id="2-2-uncaught-exception在finalization中会被忽略"><a href="#2-2-uncaught-exception在finalization中会被忽略" class="headerlink" title="2.2 uncaught exception在finalization中会被忽略"></a>2.2 <code>uncaught exception</code>在<code>finalization</code>中会被忽略</h4><p><code>finalizer</code>的另一个问题是会忽略在<code>finalization</code>中抛出的<code>uncaught exception</code>，然后终止该对象的<code>finalization</code>。未捕获异常可能导致其它对象处于损坏状态。如果另一个线程试图使用这个损坏的对象，可能会导致任意的不确定性行为。</p>
+<p><code>Cleaner</code>没有这个问题，因为一个使用cleaner的库能够控制它自己的线程。</p>
+<h4 id="2-3-使用finalizer或者Cleaner会严重影响性能"><a href="#2-3-使用finalizer或者Cleaner会严重影响性能" class="headerlink" title="2.3 使用finalizer或者Cleaner会严重影响性能"></a>2.3 使用<code>finalizer</code>或者<code>Cleaner</code>会严重影响性能</h4><p>有时会比<code>try-with-resources</code>方式慢上几十倍。主要因为他们抑制(inhibit)垃圾回收的效率。当然，在你把<code>Cleaner</code>只当做<code>safety net</code>使用时它会快很多。</p>
+<h4 id="2-4-安全问题"><a href="#2-4-安全问题" class="headerlink" title="2.4 安全问题"></a>2.4 安全问题</h4><p><code>finalizer</code>会把你的类置于<code>finalizer</code>攻击下。</p>
+<p><code>finalizer</code>攻击的原理很简单：如果有异常从构造函数或者它的序列化中抛出-如<code>readObject</code>和<code>readResolve</code>方法-恶意子类的<code>finalizer</code>可以运行在被应该死掉(died on the<br>vine)的、只完成部分构造的对象上。这个<code>finalizer</code>可以把对象的引用记录到一个<code>static</code>域上，从而阻止其被GC回收。然后缺陷对象的本不应该存在的方法就会被子类随意调用。</p>
+<p>一个final类型的class能够免于出现上述情况，因为不能创建其子类。</p>
+<h5 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h5><p>在对象上写一个<code>final</code>的<code>finalize()</code>方法，这个方法什么也不做</p>
+<h3 id="3-finalizer或者Cleaner的替代方法"><a href="#3-finalizer或者Cleaner的替代方法" class="headerlink" title="3. finalizer或者Cleaner的替代方法"></a>3. <code>finalizer</code>或者<code>Cleaner</code>的替代方法</h3><p>在不使用<code>finalizer</code>或者<code>Cleaner</code>时，一个类的对象封装了需要回收的资源如文件和或者线程时，我们应该怎样做呢?<strong>让这个类实现<code>AutoCloseable</code></strong>,并且要求其的客户端(Client)在不再需时调用每个实例的<code>close()</code>方法。通常使用<code>try-with-resources</code>来保证终止，即使要面对异常。</p>
+<p>有一个需要强调的点：<em>实例必须跟踪它是否被closed</em>: 一个对象失效时，<code>close()</code>方法必须记录到一个对象的属性中，其他方法必须检查这个属性，当对象关闭之后被调用时，这些方法应该抛出一个<code>IllegalStateException</code></p>
+<h3 id="4-finalize-和Cleaner的几个应用"><a href="#4-finalize-和Cleaner的几个应用" class="headerlink" title="4.  finalize()和Cleaner的几个应用"></a>4.  <code>finalize()</code>和<code>Cleaner</code>的几个应用</h3><h4 id="4-1-充当safety-net的角色"><a href="#4-1-充当safety-net的角色" class="headerlink" title="4.1 充当safety net的角色"></a>4.1 充当<code>safety net</code>的角色</h4><p>当自由拥有者忘记调用<code>close()</code>方法时，充当保护网(<code>safety net</code>)的角色。虽然不能保证其运行时机，但是在client忘记时，迟些释放自由总比不释放要强。</p>
+<p>当你要写这种<code>safety net</code>时要三思，考虑为这些保护付出的代价是否值得。</p>
+<p>一些<code>Java</code>类比如<code>FileInputStream</code>,<code>FileOutputStream</code>,<code>ThreadPoolExecutor</code>,<code>java.sql.Connection</code>实现了这样的安全网。</p>
+<h4 id="4-2-另一个合法应用"><a href="#4-2-另一个合法应用" class="headerlink" title="4.2 另一个合法应用"></a>4.2 另一个合法应用</h4><ul>
+<li><p><code>cleaners</code>还可用于有本地对等类(<code>native peer</code>)的情况。因为一个<code>native peer</code>不是一个普通的对象，垃圾回收器意识不到其存在，当它的<code>Java peer</code>被回收的时候并不能同时回收它。</p>
+</li>
+<li><p>当性能是可以接受，并且<code>native peer</code>持有的不是关键资源时，<code>finalizer</code>或者<code>Cleaner</code>是一种完成回收任务的一个合适选项。</p>
+</li>
+<li>当上述性能不能被接受，或者类的<code>native peer</code>持有的是关键资源时需要尽快被回收时，这个类还是应该实现<code>close()</code>方法<h5 id="4-2-1-native-peer"><a href="#4-2-1-native-peer" class="headerlink" title="4.2.1 native peer"></a>4.2.1 <code>native peer</code></h5><code>native peer</code>是普通对象通过本地方法委托的本地(非java)对象</li>
+</ul>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>不要使用<code>cleaners</code>，或者在早于<code>Java9</code>的版本中使用<code>finalize()</code>，除非作为<code>safety net</code>或者终止不重要的本地资源。即使这样，依然要注意不确定性和性能影响。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.cnblogs.com/IcanFixIt/p/8133798.html" target="_blank" rel="noopener">Effective Java 第三版——8. 避免使用Finalizer和Cleaner机制</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/java四种引用总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1854,192 +2022,6 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/Java并发笔记3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Willcat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="鹤舞云端">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/09/Java并发笔记3/" itemprop="url">Java并发笔记3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T14:15:15+08:00">
-                2018-07-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程语言/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Java并发编程实战第二章-线程安全"><a href="#Java并发编程实战第二章-线程安全" class="headerlink" title="Java并发编程实战第二章 线程安全"></a>Java并发编程实战第二章 线程安全</h3><p>编写线程安全代码的核心是管理对状态的访问，尤其<em>共享</em>和<em>可变</em>状态的访问。通过<strong>同步</strong>协调对对象可变状态的访问可以实现一个对象的线程安全。同步最基本的机制是<code>synchronized</code>关键词，但是同步(synchronization)这个属于还包括:<code>volatile</code>变量、显式(explicit)锁和原子(atomic)变量。</p>
-<h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><ol>
-<li>在设计时就考虑线程安全</li>
-<li>利用封装(encapsulation)，不可变性(immutablility)，清晰指定不可变量(invariants)是比较好的实践。</li>
-</ol>
-<h3 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h3><ol>
-<li>所有线程安全合理定义的核心都是<em>正确性</em>。<em>正确性</em> 意味着类符合其规范，一个良好的规范定义了约束对象状态的<em>不变量</em>和描述操作结果的<em>后置条件</em>。<blockquote>
-<p>线程安全的定义: 如果一个类在多个线程访问时正确运行，则它是<em>线程安全</em>的，不管运行时环境如何调度或者交错这些线程的执行，并且在调用代码部分没有多余的同步和协调。</p>
-</blockquote>
-</li>
-<li>线程安全类会封装任何需要的同步，从而使客户不必在自己实现。</li>
-<li>无状态(<code>stateless</code>)的类永远是线程安全的</li>
-</ol>
-<h3 id="2-2-原子性"><a href="#2-2-原子性" class="headerlink" title="2.2 原子性"></a>2.2 原子性</h3><h4 id="2-2-1-Race-Condition"><a href="#2-2-1-Race-Condition" class="headerlink" title="2.2.1 Race Condition"></a>2.2.1 <code>Race Condition</code></h4><blockquote>
-<p>一个<em>竞争条件</em>会在计算正确性依赖于运行时中多线程相对时间或者交错出现。换句话说，正确答案取决于幸运时机。大部分的竞争条件的类型为<code>check-then-act</code>型，此时可能会有陈旧观察用于决定下一步做什么。</p>
-</blockquote>
-<p>例子：</p>
-<ol>
-<li>自增操作是一个<code>read-modify-write</code>操作，分三步完成而非一步，所以是非原子操作。</li>
-<li>星巴克约会的例子</li>
-<li><code>lazy initialization</code>的例子</li>
-</ol>
-<h4 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h4><blockquote>
-<p>如果从一个执行A复合操作的线程的角度来看，执行B复合操作的线程要么将B所有操作执行完，要么完全不执行B系列的任何操作，那么，A和B是对彼此来说是原子的。一个<em>原子操作</em>是指与包括自己在内的所有在同一状态上的操作集都是互为原子操作的操作集。</p>
-</blockquote>
-<h4 id="原子变量"><a href="#原子变量" class="headerlink" title="原子变量"></a>原子变量</h4><p>在<code>java.util.concurrent.atomic</code>包下有很多原子变量，可以执行原子操作。如<code>AtomicLong</code>的实例方法<code>incrementAndGet()</code>。对于无状态的类添加一个线程安全的属性，则这个类仍然是线程安全的，但是如果添加的多余一个，则不保证这个类依然是线程安全的类。</p>
-<blockquote>
-<p>在实践中，要尽量使用线程安全对象来管理类的状态。</p>
-</blockquote>
-<h3 id="2-3-加锁"><a href="#2-3-加锁" class="headerlink" title="2.3 加锁"></a>2.3 加锁</h3><h4 id="Intrisic-Lock-固有锁"><a href="#Intrisic-Lock-固有锁" class="headerlink" title="Intrisic Lock(固有锁)"></a>Intrisic Lock(固有锁)</h4><p><code>synchronized</code>是Java内置固有锁，即可以修饰方法，又可以修饰代码块。修饰方法时默认由方法所属对象作为<code>intrisic locks</code>或者<code>monitor locks</code></p>
-<h4 id="可重入性-Reentrancy"><a href="#可重入性-Reentrancy" class="headerlink" title="可重入性(Reentrancy)"></a>可重入性(Reentrancy)</h4><ol>
-<li>可重入意味着锁被以线程而非以调用为单位获取。</li>
-<li>可重入通过把锁与获取计数器和其所属线程关联来实现:计数器为0时锁是unheld状态的，当一个线程获取一个unheld状态的锁后，计数器加1，如果此线程的再一次(如调用了另一个相同锁的方法)调用，则计数器加1，而非被阻塞；当线程离开<code>synchronized</code>块之后,计数器减1.</li>
-</ol>
-<h3 id="2-4-使用锁保护状态"><a href="#2-4-使用锁保护状态" class="headerlink" title="2.4 使用锁保护状态"></a>2.4 使用锁保护状态</h3><ol>
-<li>每个共享和可变的状态变量都应该被一个且仅一个锁保护，从而使维护人员知道是哪一个锁。</li>
-<li>给一个对象内的所有可变量加锁是一个惯例。但是这个加锁协议很容易因为添加一个新的方法或者<code>code path</code>被破坏。比如一个单线程程序引入一个异步的<code>TimerTask</code></li>
-<li>对每个包含多个变量的不变性条件(<code>invariants</code>)，其中涉及的所有变量都需要由同一个锁保护。</li>
-<li>即使对象中的所有方法都是原子的，也不能保证<em>复合操作</em>是原子的，还需要额外的加锁机制。此外每个方法都作为同步方法还容易引起<em>活跃性(Liveness)</em> 问题和 <em>性能问题</em>。</li>
-</ol>
-<h3 id="2-5-活跃性和性能问题"><a href="#2-5-活跃性和性能问题" class="headerlink" title="2.5 活跃性和性能问题"></a>2.5 活跃性和性能问题</h3><ol>
-<li>应该在保证原子性的情况下缩小同步的范围。</li>
-<li>占有锁的时间过长可能会导致活跃性问题和性能问题</li>
-<li>避免在长时计算或者不能快速结束如网络或者控制台IO等操作时保持锁。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2090,7 +2072,7 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
