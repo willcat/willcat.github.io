@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="读书笔记,Redis,Redis实战,NoSql," />
+  <meta name="keywords" content="Java,编程语言," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="redis数据结构概览，及部分常用命令字符串   存储的值 操作 说明     字符串、整数、浮点数 set get del 支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作    列表   命令 行为     RPUSH 将给定值push到列表最右边   LPUSH 将给定值push到列表最左边   LINDEX 获取列表对应位置上的单个元素,左起为0   LPOP 从列表最左边">
-<meta name="keywords" content="读书笔记,Redis,Redis实战,NoSql">
+<meta name="description" content="对象可达性 主流商用程序语言如java，C#等都是通过“可达性”来判断对象是否存活的。这个算法的基本思路是通过一系列的“GC Roots”对象作为起始点，从这些节点开始搜索，搜索走过的路径称为“引用链”，当一个对象到达GC Roots没有任何引用链相连时，则证明此此对象时不可用的。Java中可作为GC Roots的对象包括下面几种   虚拟机栈中引用的对象 方法区中类静态属性引用的对象 方法区中常">
+<meta name="keywords" content="Java,编程语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis笔记1">
-<meta property="og:url" content="http://yoursite.com/2018/07/25/redis笔记1/index.html">
+<meta property="og:title" content="java四种引用总结">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/java四种引用总结/index.html">
 <meta property="og:site_name" content="鹤舞云端">
-<meta property="og:description" content="redis数据结构概览，及部分常用命令字符串   存储的值 操作 说明     字符串、整数、浮点数 set get del 支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作    列表   命令 行为     RPUSH 将给定值push到列表最右边   LPUSH 将给定值push到列表最左边   LINDEX 获取列表对应位置上的单个元素,左起为0   LPOP 从列表最左边">
+<meta property="og:description" content="对象可达性 主流商用程序语言如java，C#等都是通过“可达性”来判断对象是否存活的。这个算法的基本思路是通过一系列的“GC Roots”对象作为起始点，从这些节点开始搜索，搜索走过的路径称为“引用链”，当一个对象到达GC Roots没有任何引用链相连时，则证明此此对象时不可用的。Java中可作为GC Roots的对象包括下面几种   虚拟机栈中引用的对象 方法区中类静态属性引用的对象 方法区中常">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T08:46:22.065Z">
+<meta property="og:updated_time" content="2018-08-14T02:01:18.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis笔记1">
-<meta name="twitter:description" content="redis数据结构概览，及部分常用命令字符串   存储的值 操作 说明     字符串、整数、浮点数 set get del 支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作    列表   命令 行为     RPUSH 将给定值push到列表最右边   LPUSH 将给定值push到列表最左边   LINDEX 获取列表对应位置上的单个元素,左起为0   LPOP 从列表最左边">
+<meta name="twitter:title" content="java四种引用总结">
+<meta name="twitter:description" content="对象可达性 主流商用程序语言如java，C#等都是通过“可达性”来判断对象是否存活的。这个算法的基本思路是通过一系列的“GC Roots”对象作为起始点，从这些节点开始搜索，搜索走过的路径称为“引用链”，当一个对象到达GC Roots没有任何引用链相连时，则证明此此对象时不可用的。Java中可作为GC Roots的对象包括下面几种   虚拟机栈中引用的对象 方法区中类静态属性引用的对象 方法区中常">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/25/redis笔记1/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/13/java四种引用总结/"/>
 
 
 
 
 
-  <title>redis笔记1 | 鹤舞云端</title>
+  <title>java四种引用总结 | 鹤舞云端</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/redis笔记1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/java四种引用总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Willcat">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">redis笔记1</h1>
+          <h1 class="post-title" itemprop="name headline">java四种引用总结</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T09:35:50+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T20:13:46+08:00">
+                2018-08-13
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NoSql/" itemprop="url" rel="index">
-                    <span itemprop="name">NoSql</span>
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
                   </a>
                 </span>
 
@@ -342,139 +342,27 @@
       
 
       
-        <h3 id="redis数据结构概览，及部分常用命令"><a href="#redis数据结构概览，及部分常用命令" class="headerlink" title="redis数据结构概览，及部分常用命令"></a>redis数据结构概览，及部分常用命令</h3><h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><table>
-<thead>
-<tr>
-<th>存储的值</th>
-<th>操作</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>字符串、整数、浮点数</td>
-<td>set get del</td>
-<td>支持对字符串全部或部分的操作、支持对整数和浮点数的自增、自减操作</td>
-</tr>
-</tbody>
-</table>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>行为</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>RPUSH</td>
-<td>将给定值push到列表最右边</td>
-</tr>
-<tr>
-<td>LPUSH</td>
-<td>将给定值push到列表最左边</td>
-</tr>
-<tr>
-<td>LINDEX</td>
-<td>获取列表对应位置上的单个元素,左起为0</td>
-</tr>
-<tr>
-<td>LPOP</td>
-<td>从列表最左边弹出一个元素，并且返回该元素的值</td>
-</tr>
-</tbody>
-</table>
-<h4 id="集合-set"><a href="#集合-set" class="headerlink" title="集合(set)"></a>集合(set)</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>行为</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SADD</td>
-<td>添加元素到集合，重复元素不会添加</td>
-</tr>
-<tr>
-<td>SREM</td>
-<td>从集合中删除元素</td>
-</tr>
-<tr>
-<td>SISMEMBER</td>
-<td>查看元素是否在集合中</td>
-</tr>
-<tr>
-<td>SMEMBERS</td>
-<td>查看集合中所有元素，如果元素多会很慢,<strong>慎用</strong></td>
-</tr>
-</tbody>
-</table>
-<h4 id="散列-hash"><a href="#散列-hash" class="headerlink" title="散列(hash)"></a>散列(hash)</h4><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>行为</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>HSET</td>
-<td>添加元素到hash,如果key重复则覆盖旧的value</td>
-</tr>
-<tr>
-<td>HDEL</td>
-<td>从hash中删除元素</td>
-</tr>
-<tr>
-<td>HGET</td>
-<td>读取指定元素的值</td>
-</tr>
-<tr>
-<td>HGETALL</td>
-<td>查看集合中所有元素</td>
-</tr>
-</tbody>
-</table>
-<h4 id="有序集合-zset"><a href="#有序集合-zset" class="headerlink" title="有序集合(zset)"></a>有序集合(zset)</h4><p>有序集合类似散列也是键值对，不过值是<code>score</code>，而且必须为<strong>浮点数</strong></p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>行为</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ZADD</td>
-<td>添加元素到</td>
-<td>ZADD key score member</td>
-</tr>
-<tr>
-<td>ZREM</td>
-<td>删除元素</td>
-<td></td>
-</tr>
-<tr>
-<td>ZRANGE</td>
-<td>读取指定位置范围的member</td>
-<td>ZRANGE key start stop [WITHSCORES] ,位置都是闭合的</td>
-</tr>
-<tr>
-<td>ZRANGEBYSCORE</td>
-<td>读取指定score范围的member</td>
-<td>ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</td>
-</tr>
-</tbody>
-</table>
-<h3 id="数据结构操作进阶"><a href="#数据结构操作进阶" class="headerlink" title="数据结构操作进阶"></a>数据结构操作进阶</h3><h4 id="字符串-1"><a href="#字符串-1" class="headerlink" title="字符串"></a>字符串</h4><ol>
-<li>valued的整数类型的取值范围与系统的长整数一致，32位系统上就是32位有符号整数，在64位系统上就是64位有符号整数。<h4 id="发布和订阅"><a href="#发布和订阅" class="headerlink" title="发布和订阅"></a>发布和订阅</h4><code>PUBLISH</code><br><code>SUBSCRIBE</code><h4 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a>Sort</h4>能同时适用三种数据的操作<h4 id="基本的redis事务"><a href="#基本的redis事务" class="headerlink" title="基本的redis事务"></a>基本的redis事务</h4>用法:<br><code>MULTI
-cmd1
-cmd2
-..
-EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"></a>过期</h4></li>
-<li>redis不能为键里单个元素设置过期时间。<br>|命令 | 行为 |示例|<br>|—-|—-|<br>|PESIST|移除键的过期时间|<br>|TTL|查看键还有多久过期时间，单位是秒|<br>|PTTL|查看键还有多久过期时间,单位是毫秒|</li>
+        <h3 id="对象可达性"><a href="#对象可达性" class="headerlink" title="对象可达性"></a>对象可达性</h3><ul>
+<li>主流商用程序语言如java，C#等都是通过“可达性”来判断对象是否存活的。这个算法的基本思路是通过一系列的“GC Roots”对象作为起始点，从这些节点开始搜索，搜索走过的路径称为“引用链”，当一个对象到达GC Roots没有任何引用链相连时，则证明此此对象时不可用的。<h4 id="Java中可作为GC-Roots的对象包括下面几种"><a href="#Java中可作为GC-Roots的对象包括下面几种" class="headerlink" title="Java中可作为GC Roots的对象包括下面几种"></a>Java中可作为GC Roots的对象包括下面几种</h4></li>
+</ul>
+<ol>
+<li>虚拟机栈中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法中JNI(即一般说的Native方法)引用的对象</li>
+</ol>
+<h3 id="Java中的四种引用"><a href="#Java中的四种引用" class="headerlink" title="Java中的四种引用"></a>Java中的四种引用</h3><ol>
+<li>强引用(Strong Reference)</li>
+<li>软引用(SoftReference)</li>
+<li>弱引用(WeakReference)</li>
+<li>虚引用(PhantomReference)</li>
+</ol>
+<h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>也就是我们最常见的普通对象的引用，只要还有引用指向一个对象，就能表明对象还“活着”，垃圾收集器不会碰这种对象。</p>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>比强引用相对弱化，<code>JVM</code>会确保在<code>OutOfMemory</code>之前，清理软引用指向的对象。软引用通常<em>用来实现内存敏感的缓存</em>，如果还有空闲内存，就可以暂时保留缓存，当内存不足时清理掉。这样就保证了使用缓存的同时，不会耗尽内存。</p>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>比软引用更弱化，只剩弱引用关联的对象只能生存到下一次垃圾回收之前。无论内存是否足够都会回收掉。</p>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>对对象的垃圾回收没任何影响，GC根本不考虑它。。。一般用来在被回收时接收一个系统通知。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li>《深入理解JVM》3.2</li>
 </ol>
 
       
@@ -493,13 +381,9 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
       
         <div class="post-tags">
           
-            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
-            <a href="/tags/Redis/" rel="tag"># Redis</a>
-          
-            <a href="/tags/Redis实战/" rel="tag"># Redis实战</a>
-          
-            <a href="/tags/NoSql/" rel="tag"># NoSql</a>
+            <a href="/tags/编程语言/" rel="tag"># 编程语言</a>
           
         </div>
       
@@ -512,8 +396,8 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/17/Java并发笔记4/" rel="next" title="Java并发笔记4">
-                <i class="fa fa-chevron-left"></i> Java并发笔记4
+              <a href="/2018/08/13/Junit最佳实践-译/" rel="next" title="Junit最佳实践(译)">
+                <i class="fa fa-chevron-left"></i> Junit最佳实践(译)
               </a>
             
           </div>
@@ -521,10 +405,6 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/27/maven之生命周期/" rel="prev" title="maven之生命周期">
-                maven之生命周期 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -656,7 +536,7 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis数据结构概览，及部分常用命令"><span class="nav-number">1.</span> <span class="nav-text">redis数据结构概览，及部分常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串"><span class="nav-number">1.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列表"><span class="nav-number">1.2.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合-set"><span class="nav-number">1.3.</span> <span class="nav-text">集合(set)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#散列-hash"><span class="nav-number">1.4.</span> <span class="nav-text">散列(hash)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有序集合-zset"><span class="nav-number">1.5.</span> <span class="nav-text">有序集合(zset)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构操作进阶"><span class="nav-number">2.</span> <span class="nav-text">数据结构操作进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串-1"><span class="nav-number">2.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布和订阅"><span class="nav-number">2.2.</span> <span class="nav-text">发布和订阅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sort"><span class="nav-number">2.3.</span> <span class="nav-text">Sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本的redis事务"><span class="nav-number">2.4.</span> <span class="nav-text">基本的redis事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过期"><span class="nav-number">2.5.</span> <span class="nav-text">过期</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象可达性"><span class="nav-number">1.</span> <span class="nav-text">对象可达性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java中可作为GC-Roots的对象包括下面几种"><span class="nav-number">1.1.</span> <span class="nav-text">Java中可作为GC Roots的对象包括下面几种</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java中的四种引用"><span class="nav-number">2.</span> <span class="nav-text">Java中的四种引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用"><span class="nav-number">3.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软引用"><span class="nav-number">4.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱引用"><span class="nav-number">5.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚引用"><span class="nav-number">6.</span> <span class="nav-text">虚引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

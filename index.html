@@ -249,6 +249,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/java四种引用总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/13/java四种引用总结/" itemprop="url">java四种引用总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T20:13:46+08:00">
+                2018-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程语言/" itemprop="url" rel="index">
+                    <span itemprop="name">编程语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="对象可达性"><a href="#对象可达性" class="headerlink" title="对象可达性"></a>对象可达性</h3><ul>
+<li>主流商用程序语言如java，C#等都是通过“可达性”来判断对象是否存活的。这个算法的基本思路是通过一系列的“GC Roots”对象作为起始点，从这些节点开始搜索，搜索走过的路径称为“引用链”，当一个对象到达GC Roots没有任何引用链相连时，则证明此此对象时不可用的。<h4 id="Java中可作为GC-Roots的对象包括下面几种"><a href="#Java中可作为GC-Roots的对象包括下面几种" class="headerlink" title="Java中可作为GC Roots的对象包括下面几种"></a>Java中可作为GC Roots的对象包括下面几种</h4></li>
+</ul>
+<ol>
+<li>虚拟机栈中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法中JNI(即一般说的Native方法)引用的对象</li>
+</ol>
+<h3 id="Java中的四种引用"><a href="#Java中的四种引用" class="headerlink" title="Java中的四种引用"></a>Java中的四种引用</h3><ol>
+<li>强引用(Strong Reference)</li>
+<li>软引用(SoftReference)</li>
+<li>弱引用(WeakReference)</li>
+<li>虚引用(PhantomReference)</li>
+</ol>
+<h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>也就是我们最常见的普通对象的引用，只要还有引用指向一个对象，就能表明对象还“活着”，垃圾收集器不会碰这种对象。</p>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>比强引用相对弱化，<code>JVM</code>会确保在<code>OutOfMemory</code>之前，清理软引用指向的对象。软引用通常<em>用来实现内存敏感的缓存</em>，如果还有空闲内存，就可以暂时保留缓存，当内存不足时清理掉。这样就保证了使用缓存的同时，不会耗尽内存。</p>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>比软引用更弱化，只剩弱引用关联的对象只能生存到下一次垃圾回收之前。无论内存是否足够都会回收掉。</p>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>对对象的垃圾回收没任何影响，GC根本不考虑它。。。一般用来在被回收时接收一个系统通知。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li>《深入理解JVM》3.2</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/Junit最佳实践-译/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -347,6 +510,23 @@
 <li>非常快- 你会写很多的单元测试，而且他们会被频繁的运行，所以他们需要运行的很快。我说的是秒级而非毫秒级别的快。</li>
 <li>非常可靠- 你希望通过测试找到<code>production</code>代码的问题。当且仅当<code>production</code>代码被破坏时，测试才失败。有些人认为测试间歇性失败比不测试更问题更严重。</li>
 </ol>
+<h3 id="1-保证单元测试只在内存中进行"><a href="#1-保证单元测试只在内存中进行" class="headerlink" title="1. 保证单元测试只在内存中进行"></a>1. 保证单元测试只在内存中进行</h3><p>比如，不要在单元测试中发起HTTP请求、访问数据库、或者读取文件系统。这些行为太慢而且不可靠，所以最好把他们留给其他类型的测试，比如<code>功能测试</code></p>
+<p>读取文件系统的测试对单元测试来说太复杂了：</p>
+<ol>
+<li>它们需要配置当前的工作目录的位置，要想在开发机器和构建机器上都做好是比较复杂的。</li>
+<li>它们通常需要存储在源码管理中的文件，并且保持源码管理中这些文件实时更新是很复杂的。</li>
+</ol>
+<h3 id="2-不要跳过单元测试"><a href="#2-不要跳过单元测试" class="headerlink" title="2. 不要跳过单元测试"></a>2. 不要跳过单元测试</h3><p>有许多方式跳过单元测试，但是你不应该这么做：</p>
+<ul>
+<li>不要使用Junit的<code>@Ignore</code>注解</li>
+<li>不要使用Maven的<code>maven.skip.test</code>属性</li>
+<li>不要使用Maven Surefire插件的<code>skipTests</code>属性</li>
+<li>不要使用Maven Surefire插件的<code>excludes</code>属性<br>被跳过的单元测试不能提供任何好处，但是仍然会被从源码管理中检出和编译。对于不需要的测试，我们应该从源码管理中移除，而不是跳过测试。</li>
+</ul>
+<h3 id="3-针对每个单元测试方法只执行一个断言"><a href="#3-针对每个单元测试方法只执行一个断言" class="headerlink" title="3. 针对每个单元测试方法只执行一个断言"></a>3. 针对每个单元测试方法只执行一个断言</h3><ul>
+<li>当测试失败时，更容易判断是哪里出了问题。假如一个单元测试有三个断言，我们需要进一步尝试去判断到底是哪个断言失败了。</li>
+<li>当一个单元测试执行多个断言时，不能保证每个断言都发生。比如一个<code>unchecked exception</code>发生，在这个异常之后的所有断言就都不会再出现了，Junit会把这个方法标记为有一个错误然后执行下一个测试方法。</li>
+</ul>
 
           
         
@@ -1860,173 +2040,6 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/05/Effective-Java读书笔记1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Willcat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="鹤舞云端">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/05/Effective-Java读书笔记1/" itemprop="url">Effective Java读书笔记1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T11:18:13+08:00">
-                2018-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程语言/" itemprop="url" rel="index">
-                    <span itemprop="name">编程语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Item-7-消除过期对象引用"><a href="#Item-7-消除过期对象引用" class="headerlink" title="Item 7: 消除过期对象引用"></a>Item 7: 消除过期对象引用</h3><p>产生过期(obsolete)对象的主要原因:</p>
-<ol>
-<li>类自己管理内存</li>
-<li>缓存处理不当</li>
-<li>监听和其他回调</li>
-</ol>
-<h4 id="类自己管理内存"><a href="#类自己管理内存" class="headerlink" title="类自己管理内存"></a>类自己管理内存</h4><h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><p>例如实现一个<code>Stack</code>，使用数组维护栈内内容，当栈增加元素时是没问题的，但是当栈执行<code>pop()</code>时，如果只返回当前元素，而不将数组当前元素指向<code>null</code>，则此对象因一直被引用而不能被回收。</p>
-<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><ol>
-<li>手动将不用的对象引用指向<code>null</code>。<em>注意:这样做应该是例外而非惯例</em></li>
-<li>让包含对象引用的变量尽快脱离其作用域才是更好的实践，如将变量定义在最小的作用域里。</li>
-</ol>
-<h4 id="缓存处理不当"><a href="#缓存处理不当" class="headerlink" title="缓存处理不当"></a>缓存处理不当</h4><h5 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h5><p>当将对象放到缓存中，随着时间推移，缓存中的对象已经无效后未被正确清除就会造成内存泄漏。</p>
-<h5 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h5><ol>
-<li>使用<code>WeakHashMap</code>存储缓存，当<code>key</code>不再被引用的时候，<code>GC</code>会自动把这个<code>entry</code>清理掉</li>
-<li>对于那些使用时间不确定的缓存条目，可以是用<code>ScheduledThreadPoolExecutor</code>在后台定时清理</li>
-<li>也可以当做添加新缓存条目时的副作用，比如通过重写<code>LinkedHashMap.removeEldestEntry()</code>方法，在添加新元素时该方法如果返回true清除旧的元素</li>
-<li>更复杂的需求则需要是用<code>java.lang.ref</code>了</li>
-</ol>
-<h4 id="监听和其他回调"><a href="#监听和其他回调" class="headerlink" title="监听和其他回调"></a>监听和其他回调</h4><h5 id="场景-2"><a href="#场景-2" class="headerlink" title="场景"></a>场景</h5><p>当你的API有回调函数被Client注册之后，Client如果没有显式解除注册就会造成内存泄漏</p>
-<h5 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h5><ol>
-<li>将这些回调用<code>WeakHashMap</code>的key保存</li>
-</ol>
-<h4 id="实践建议"><a href="#实践建议" class="headerlink" title="实践建议"></a>实践建议</h4><ol>
-<li>提前预防，编码时就认真审核这些问题。</li>
-<li>其次是审核代码和使用<code>heap profiler</code>来分析</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2077,7 +2090,7 @@ EXEC</code><h4 id="过期"><a href="#过期" class="headerlink" title="过期"><
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
