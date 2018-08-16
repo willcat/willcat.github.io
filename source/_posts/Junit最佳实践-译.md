@@ -199,4 +199,4 @@ public void foo_seven() throws Exception
 ### 20. 不要尝试测试直接或间接调用Thread.sleep的生产方法的时间
 同上
 
-### 21. 
+### 21. 直接测试类;不要依赖间接测试
