@@ -6,7 +6,13 @@ categories: [mysql]
 ---
 
 1. mysql/mariadb服务端导出到文件命令
-`select [列1],[列2]... into outfile [服务器端目录] from [数据表名]`，要注意mysql/mariadb所属用户是否用权限写到目录或者文件
+```sql
+SELECT ... FROM TABLE_A
+INTO OUTFILE "/path/to/file"
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+```
+要注意mysql/mariadb所属用户是否用权限写到目录或者文件
 
 2. mysql/mariadb导出到本地文件命令
 上述命令是导出到服务器端的，本命令是导出到客户端的
