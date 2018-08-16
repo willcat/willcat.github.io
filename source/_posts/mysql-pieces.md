@@ -1,7 +1,7 @@
 ---
 title: mysql_pieces
 date: 2018-08-16 10:37:50
-tags: [mysql,数据库]
+tags: [mysql,数据库,pieces]
 categories: [mysql]
 ---
 
