@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="读书笔记,mesos,mesos实战," />
+  <meta name="keywords" content="mesos,mesos实战,读书笔记," />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="mesos的起源及其所要解决的问题2010 年， 一个旨在解决扩容问题的项目在美国加州大学伯克利分校诞生。这个软件项目就是现在所知的 Apache Mesos。它是一个开源的集群管理工具。它让运维和开发人员更多地关注应用本身，而不是其下的服务器资源 mesos的基本运行机制它在某种程度上对 CPU、内存、磁盘资源进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系统， Meso">
-<meta name="keywords" content="读书笔记,mesos,mesos实战">
+<meta name="description" content="mesos的起源及其所要解决的问题2010 年， 一个旨在解决扩容问题的项目在美国加州大学伯克利分校诞生。这个软件项目就是现在所知的 Apache Mesos。它是一个开源的集群管理工具。它让运维和开发人员更多地关注应用本身，而不是其下的服务器资源 mesos的基本运行机制 它在某种程度上对 CPU、内存、磁盘资源进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系统， Mes">
+<meta name="keywords" content="mesos,mesos实战,读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mesos系列笔记(一)">
 <meta property="og:url" content="http://yoursite.com/2018/05/07/Mesos系列笔记-一/index.html">
 <meta property="og:site_name" content="鹤舞云端">
-<meta property="og:description" content="mesos的起源及其所要解决的问题2010 年， 一个旨在解决扩容问题的项目在美国加州大学伯克利分校诞生。这个软件项目就是现在所知的 Apache Mesos。它是一个开源的集群管理工具。它让运维和开发人员更多地关注应用本身，而不是其下的服务器资源 mesos的基本运行机制它在某种程度上对 CPU、内存、磁盘资源进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系统， Meso">
+<meta property="og:description" content="mesos的起源及其所要解决的问题2010 年， 一个旨在解决扩容问题的项目在美国加州大学伯克利分校诞生。这个软件项目就是现在所知的 Apache Mesos。它是一个开源的集群管理工具。它让运维和开发人员更多地关注应用本身，而不是其下的服务器资源 mesos的基本运行机制 它在某种程度上对 CPU、内存、磁盘资源进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系统， Mes">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-10T10:43:27.805Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/mesos_how_to_run.png">
+<meta property="og:updated_time" content="2018-08-21T02:29:06.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mesos系列笔记(一)">
-<meta name="twitter:description" content="mesos的起源及其所要解决的问题2010 年， 一个旨在解决扩容问题的项目在美国加州大学伯克利分校诞生。这个软件项目就是现在所知的 Apache Mesos。它是一个开源的集群管理工具。它让运维和开发人员更多地关注应用本身，而不是其下的服务器资源 mesos的基本运行机制它在某种程度上对 CPU、内存、磁盘资源进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系统， Meso">
+<meta name="twitter:description" content="mesos的起源及其所要解决的问题2010 年， 一个旨在解决扩容问题的项目在美国加州大学伯克利分校诞生。这个软件项目就是现在所知的 Apache Mesos。它是一个开源的集群管理工具。它让运维和开发人员更多地关注应用本身，而不是其下的服务器资源 mesos的基本运行机制 它在某种程度上对 CPU、内存、磁盘资源进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系统， Mes">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/mesos_how_to_run.png">
 
 
 
@@ -343,8 +345,12 @@
 
       
         <h3 id="mesos的起源及其所要解决的问题"><a href="#mesos的起源及其所要解决的问题" class="headerlink" title="mesos的起源及其所要解决的问题"></a>mesos的起源及其所要解决的问题</h3><p>2010 年， 一个旨在解决扩容问题的项目在美国加州大学伯克利分校诞生。这个软件项目就是现在所知的 <code>Apache Mesos</code>。它是一个开源的集群管理工具。它让运维和开发人员更<br>多地关注应用本身，而不是其下的服务器资源</p>
-<h3 id="mesos的基本运行机制"><a href="#mesos的基本运行机制" class="headerlink" title="mesos的基本运行机制"></a>mesos的基本运行机制</h3><p>它在某种程度上对 CPU、内存、磁盘资源<br>进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系<br>统， Mesos 创造了 一个单独底层的集群为应用提供所需资源。</p>
-
+<h3 id="mesos的基本运行机制"><a href="#mesos的基本运行机制" class="headerlink" title="mesos的基本运行机制"></a>mesos的基本运行机制</h3><ul>
+<li>它在某种程度上对 CPU、内存、磁盘资源进行抽象，从而允许整个数据中心如同单台大服务器般运转。无需虚拟机和操作系统， Mesos 创造了 一个单独底层的集群为应用提供所需资源。</li>
+<li><code>Mesos</code>的资源隔离机制支持多用户，该功能允许多个应用运行在同一个机器上。</li>
+<li><code>Mesos</code>还从一开始就支持分布式、高可用和容错。通过使用容器技术如<code>linux</code> <code>groups</code>(<code>cgroups</code>)和<code>Docker</code>，<code>Mesos</code>实现了进程间的隔离，从而允许多个应用运行在同一机器上。也就是说不必再为<code>Memecached</code>，<code>Jenkins CI</code>和<code>Ruby</code>分别去搭建集群了。<h4 id="如何工作"><a href="#如何工作" class="headerlink" title="如何工作"></a>如何工作</h4><img src="../../mesos_how_to_run.png" alt="Mesos:How to work"><br>tip:现在<h5 id="Resource-offers"><a href="#Resource-offers" class="headerlink" title="Resource offers"></a><code>Resource offers</code></h5>与其他集群管理器类似，<code>Mesos</code>集群也由一组称为<code>master</code>和<code>agent</code>的机器组成。<code>agent</code>定期以<code>Resource offers</code>的形式将可用的<code>cpu</code>,<code>memory</code>,<code>storage</code>通知到<code>master</code>。<h5 id="两层调度-two-tier-scheduling"><a href="#两层调度-two-tier-scheduling" class="headerlink" title="两层调度(two-tier scheduling)"></a>两层调度(<code>two-tier scheduling</code>)</h5>在<code>Mesos</code>集群中，<code>Mesos</code>的分配模块(<code>alloction module</code>)和框架的调度器一起负责对资源的调度，也就是所谓的<code>双层调度</code>.</li>
+</ul>
+<h5 id="资源隔离"><a href="#资源隔离" class="headerlink" title="资源隔离"></a>资源隔离</h5>
       
     </div>
     
@@ -361,11 +367,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
-          
             <a href="/tags/mesos/" rel="tag"># mesos</a>
           
             <a href="/tags/mesos实战/" rel="tag"># mesos实战</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
           
         </div>
       
@@ -463,7 +469,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -474,7 +480,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -485,7 +491,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -518,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mesos的起源及其所要解决的问题"><span class="nav-number">1.</span> <span class="nav-text">mesos的起源及其所要解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mesos的基本运行机制"><span class="nav-number">2.</span> <span class="nav-text">mesos的基本运行机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mesos的起源及其所要解决的问题"><span class="nav-number">1.</span> <span class="nav-text">mesos的起源及其所要解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mesos的基本运行机制"><span class="nav-number">2.</span> <span class="nav-text">mesos的基本运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何工作"><span class="nav-number">2.1.</span> <span class="nav-text">如何工作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Resource-offers"><span class="nav-number">2.1.1.</span> <span class="nav-text">Resource offers</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#两层调度-two-tier-scheduling"><span class="nav-number">2.1.2.</span> <span class="nav-text">两层调度(two-tier scheduling)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#资源隔离"><span class="nav-number">2.1.3.</span> <span class="nav-text">资源隔离</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
