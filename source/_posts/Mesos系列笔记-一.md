@@ -13,7 +13,7 @@ categories: [大数据]
 - `Mesos`的资源隔离机制支持多用户，该功能允许多个应用运行在同一个机器上。
 - `Mesos`还从一开始就支持分布式、高可用和容错。通过使用容器技术如`linux` `groups`(`cgroups`)和`Docker`，`Mesos`实现了进程间的隔离，从而允许多个应用运行在同一机器上。也就是说不必再为`Memecached`，`Jenkins CI`和`Ruby`分别去搭建集群了。
 #### 如何工作
-![Mesos:How to work](../images/mesos_how_to_run.png)
+![Mesos:How to work](/images/mesos_how_to_run.png)
 tip:现在`slave`已经改为`agent`
 ##### `Resource offers`
 与其他集群管理器类似，`Mesos`集群也由一组称为`master`和`agent`的机器组成。`agent`定期以`Resource offers`的形式将可用的`cpu`,`memory`,`storage`通知到`master`。
