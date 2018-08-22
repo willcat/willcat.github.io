@@ -249,6 +249,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/27/maven之生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/27/maven之生命周期/" itemprop="url">maven之生命周期</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-27T09:47:07+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="maven生命周期"><a href="#maven生命周期" class="headerlink" title="maven生命周期"></a>maven生命周期</h3><p>Maven将项目的清理、编译、测试、部署等构建过程的各个阶段进行了抽象，形成了三个相互独立的生命周期:</p>
+<h4 id="clean生命周期"><a href="#clean生命周期" class="headerlink" title="clean生命周期"></a><code>clean</code>生命周期</h4><p>主要负责项目的清理工作。包括以下几个顺序阶段:</p>
+<ol>
+<li>pre-clean    ：执行清理前的工作；</li>
+<li>clean    ：清理上一次构建生成的所有文件；</li>
+<li>post-clean    ：执行清理后的工作</li>
+</ol>
+<h4 id="default生命周期"><a href="#default生命周期" class="headerlink" title="default生命周期"></a><code>default</code>生命周期</h4><p>负责项目的部署，<code>default</code>生命周期是最核心的，它包含了构建项目时真正需要执行的所有步骤。它包含以下各个阶段:</p>
+<ol>
+<li>validate</li>
+<li>initialize</li>
+<li>generate-sources</li>
+<li>process-sources</li>
+<li>generate-resources</li>
+<li>process-resources    ：复制和处理资源文件到target目录，准备打包；</li>
+<li>compile    ：编译项目的源代码；</li>
+<li>process-classes</li>
+<li>generate-test-sources</li>
+<li>process-test-sources</li>
+<li>generate-test-resources</li>
+<li>process-test-resources</li>
+<li>test-compile    ：编译测试源代码；</li>
+<li>process-test-classes</li>
+<li>test    ：运行测试代码；</li>
+<li>prepare-package</li>
+<li>package    ：打包成jar或者war或者其他格式的分发包；</li>
+<li>pre-integration-test</li>
+<li>integration-test</li>
+<li>post-integration-test</li>
+<li>verify</li>
+<li>install    ：将打好的包安装到本地仓库，供其他项目使用；</li>
+<li>deploy    ：将打好的包安装到远程仓库，供其他项目使用；</li>
+</ol>
+<h4 id="site生命周期"><a href="#site生命周期" class="headerlink" title="site生命周期"></a><code>site</code>生命周期</h4><p>负责创建项目的文档站点等工作。</p>
+<ol>
+<li>pre-site</li>
+<li>site ：生成项目的站点文档；</li>
+<li>post-site</li>
+<li>site-deploy ：发布生成的站点文档</li>
+</ol>
+<h3 id="执行方式解释"><a href="#执行方式解释" class="headerlink" title="执行方式解释"></a>执行方式解释</h3><p>每个生命周期都是按顺序执行，且后面的phase依赖于前面的phase。执行某个phase时，其前面的phase会依顺序执行，即<code>mvn cmd</code>指定的某个<code>cmd</code>阶段为从该生命周期顺序执行构建过程的最后一个阶段，但不会触发另外两套生命周期中的任何phase</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="约定优于配置："><a href="#约定优于配置：" class="headerlink" title="约定优于配置："></a>约定优于配置：</h4><p>在默认情况下，“maven-surefire-plugin”插件将自动执行项目“src/test/java”路径下的测试类，但测试类需要遵从以下命名模式，Maven才能自动执行它们：　　</p>
+<ul>
+<li><code>Test*.java</code>：以Test开头的Java类；</li>
+<li><code>*Test.java</code> ：以Test结尾的Java类;</li>
+<li><code>*TestCase.java</code>：以TestCase结尾的Java类；</li>
+</ul>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a href="https://www.cnblogs.com/liubaozhe/p/6929432.html" target="_blank" rel="noopener">Maven测试篇</a></li>
+<li><a href="https://www.cnblogs.com/luotaoyeah/p/3819001.html" target="_blank" rel="noopener">Maven入门指南⑦：Maven的生命周期和插件</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/redis笔记1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1949,7 +2141,7 @@ pool.shutdown();</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1971,7 +2163,7 @@ pool.shutdown();</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
