@@ -78,8 +78,8 @@ val controlStream = env.addSource(new FlinkKafkaConsumer09("controls", new Contr
                     .name("Control Source")
                     .split((ce: ControlEvent) => {
                         ce.customerId match {
-                        case Constants.GLOBAL_CUSTOMER_ID => List("global")
-                        case _ => List("specific")
+                            case Constants.GLOBAL_CUSTOMER_ID => List("global")
+                            case _ => List("specific")
                         }
                     })
 ```
