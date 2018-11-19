@@ -155,5 +155,5 @@ class FilterFunction() extends RichCoFlatMapFunction[ControlEvent, CustomerEvent
 因为事件的顺序对我们的警报很重要，所以我们实际上会“阻塞”实时事件，直到历史事件被处理完毕，但这个阻塞是人为的，并不会实际阻止事件的处理。当一个实时事件被引导并进入警报时，我们将该事件存储在一个不断扩展的缓冲区中。这显然存在内存风险，但我们使用带有MySQL的缓冲系统作为后端，以防止内存不足。历史数据作业完成警报处理后，实时数据作业处理缓冲的事件，使其准备好从此时开始处理实时事件。
 
 # 结束
-感谢您的关注，我们希望您对我们的用例概述有所帮助。 同样，如果您想了解更多信息，可以在此处查看我们的[Flink Forward演示文稿](http://sf.flink-forward.org/kb_sessions/dynamically-configured-stream-processing-using-flink-kafka/)，并从此处的帖子中获取[示例代码](https://github.com/brelloch/FlinkForward2017)。
+感谢您的关注，我们希望您对我们的用例概述有所帮助。 同样，如果您想了解更多信息，可以在此处查看我们的[Flink Forward演示文稿](https://docs.google.com/presentation/d/1zTde6_nD3LV33IjiOfEsaIWnt-YGpnX76-ETbSU1MIQ/edit?usp=sharing)，并从此处的帖子中获取[示例代码](https://github.com/brelloch/FlinkForward2017)。
 
