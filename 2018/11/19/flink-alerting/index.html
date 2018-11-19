@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://yoursite.com/images/flink_alerting/slide-4.png">
 <meta property="og:image" content="http://yoursite.com/images/flink_alerting/slide-5.png">
 <meta property="og:image" content="http://yoursite.com/images/flink_alerting/slide-6.png">
-<meta property="og:updated_time" content="2018-11-19T08:35:36.939Z">
+<meta property="og:updated_time" content="2018-11-19T08:47:51.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态配置流处理-BetterCloud如何使用Flink构建报警系统">
 <meta name="twitter:description" content="许多Apache Flink®用户正在构建警报或异常检测应用程序，ING和Mux是最近Flink Forward会议的两个例子。 今天，我们将重点介绍BetterCloud的工作，他们了解到，只有当新创建的警报应用于未来事件以及历史事件时，动态警报工具才真正对其客户有用。 在这篇客座文章中，我们将详细讨论BetterCloud如何使用Apache Flink为其警报提供动力，以及他们如何以高效的方">
@@ -399,7 +399,7 @@
 <p>这些工作几乎完全相同。但是，只处理历史数据而另一个处理实时数据。我们这样做是因为历史事件的处理可能相当昂贵。这是一项耗时的操作。 我们不希望它减慢或影响我们的实时警报的性能。</p>
 <p>当实时数据作业处理其尚未计数的警报事件时，它会向历史数据作业发送请求，以针对该警报处理该租户的历史数据。完成后，历史数据作业将该请求的结果发送到实时数据作业。</p>
 <p>因为事件的顺序对我们的警报很重要，所以我们实际上会“阻塞”实时事件，直到历史事件被处理完毕，但这个阻塞是人为的，并不会实际阻止事件的处理。当一个实时事件被引导并进入警报时，我们将该事件存储在一个不断扩展的缓冲区中。这显然存在内存风险，但我们使用带有MySQL的缓冲系统作为后端，以防止内存不足。历史数据作业完成警报处理后，实时数据作业处理缓冲的事件，使其准备好从此时开始处理实时事件。</p>
-<h1 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h1><p>感谢您的关注，我们希望您对我们的用例概述有所帮助。 同样，如果您想了解更多信息，可以在此处查看我们的<a href="http://sf.flink-forward.org/kb_sessions/dynamically-configured-stream-processing-using-flink-kafka/" target="_blank" rel="noopener">Flink Forward演示文稿</a>，并从此处的帖子中获取<a href="https://github.com/brelloch/FlinkForward2017" target="_blank" rel="noopener">示例代码</a>。</p>
+<h1 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h1><p>感谢您的关注，我们希望您对我们的用例概述有所帮助。 同样，如果您想了解更多信息，可以在此处查看我们的<a href="https://docs.google.com/presentation/d/1zTde6_nD3LV33IjiOfEsaIWnt-YGpnX76-ETbSU1MIQ/edit?usp=sharing" target="_blank" rel="noopener">Flink Forward演示文稿</a>，并从此处的帖子中获取<a href="https://github.com/brelloch/FlinkForward2017" target="_blank" rel="noopener">示例代码</a>。</p>
 
       
     </div>
