@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="量化交易," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文Beginner’s Guide to Quantitative Trading 译文本文中，我将介绍一个端到端量化交易系统的一些基本概念。这篇文章希望服务两类读者。一是希望获得一个量化交易员工作的人；二是希望创建自己“retail”算法交易业务的人。 量化交易是量化金融领域中一个十分复杂的领域。你需要付出大量的时间去学习必须的知识，从而通过面试或者构建自己的交易策略。而且它还需要有足够的编程">
+<meta name="keywords" content="量化交易">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量化交易入门">
+<meta property="og:url" content="http://yoursite.com/2018/08/30/量化交易入门/index.html">
+<meta property="og:site_name" content="鹤舞云端">
+<meta property="og:description" content="原文Beginner’s Guide to Quantitative Trading 译文本文中，我将介绍一个端到端量化交易系统的一些基本概念。这篇文章希望服务两类读者。一是希望获得一个量化交易员工作的人；二是希望创建自己“retail”算法交易业务的人。 量化交易是量化金融领域中一个十分复杂的领域。你需要付出大量的时间去学习必须的知识，从而通过面试或者构建自己的交易策略。而且它还需要有足够的编程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-08T08:43:23.638Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="量化交易入门">
+<meta name="twitter:description" content="原文Beginner’s Guide to Quantitative Trading 译文本文中，我将介绍一个端到端量化交易系统的一些基本概念。这篇文章希望服务两类读者。一是希望获得一个量化交易员工作的人；二是希望创建自己“retail”算法交易业务的人。 量化交易是量化金融领域中一个十分复杂的领域。你需要付出大量的时间去学习必须的知识，从而通过面试或者构建自己的交易策略。而且它还需要有足够的编程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/30/量化交易入门/"/>
+
+
+
+
+
+  <title>量化交易入门 | 鹤舞云端</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">鹤舞云端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">鹤舞云端</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/30/量化交易入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">量化交易入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T22:03:23+08:00">
+                2018-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/量化交易/" itemprop="url" rel="index">
+                    <span itemprop="name">量化交易</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h3><p><a href="https://www.quantstart.com/articles/Beginners-Guide-to-Quantitative-Trading" target="_blank" rel="noopener">Beginner’s Guide to Quantitative Trading</a></p>
+<h3 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h3><p>本文中，我将介绍一个端到端量化交易系统的一些基本概念。这篇文章希望服务两类读者。一是希望获得一个量化交易员工作的人；二是希望创建自己“retail”算法交易业务的人。</p>
+<p>量化交易是量化金融领域中一个十分复杂的领域。你需要付出大量的时间去学习必须的知识，从而通过面试或者构建自己的交易策略。而且它还需要有足够的编程经验，至少是<code>MATLAB</code>,<code>R</code>或者<code>Python</code>等编程语言中的一种。然而，随着交易频率的增加，技术面变得越来越相关。因此，熟悉<code>C/C++</code>是极为重要的。</p>
+<p>一个量化交易系统包含四个主要的组件：</p>
+<ul>
+<li>确定策略 - 发现一个策略，发现优势，决定交易频率</li>
+<li>策略回溯测试 - 获取数据，分析策略性能，去除偏差</li>
+<li>执行系统 - 连接一个交易所，自动化交易，最小化交易成本</li>
+<li>风险管理 - 优化资本配置，“bet size”/<a href="https://zhuanlan.zhihu.com/p/21084686" target="_blank" rel="noopener">凯莉公式</a>和交易心理。</li>
+</ul>
+<p>我们以如何识别交易策略作为开始。</p>
+<p>###交易策略识别<br>所有的量化交易过程都始于最初的研究阶段。这个研究过程包含发现一个策略，看这个策略是否适合你正在运行的策略组合，后的测试策略所必须的任何数据，然后优化这个策略以期更好的回报和/或者更低的风险。如果做为一个“retail”交易员，你需要考虑你的资本需求以及交易成本对策略有多少影响。</p>
+<p>与大众的看法相反，通过各种公共渠道找到盈利策略其实很简单。学术界定期公布理论交易结果（尽管大部分是交易费用总额）。定量金融博客将详细讨论策略。贸易杂志将概述基金使用的一些策略</p>
+<p>你可能会问，为什么个人和公司都热衷于讨论他们的盈利战略，尤其是当他们知道其他人“拥挤的交易”可能会阻止该战略长期有效的时候。原因在于，他们将不会经常讨论他们已经得出的确切的参数和调整方法。这些优化是把一个相对平庸的战略变成一个高利润的战略的关键。事实上，创建自己独特策略的最佳方法之一是找到类似的方法，然后执行自己的优化过程。</p>
+<p>以下是一些寻找策略想法的地方：</p>
+<ul>
+<li><a href="http://www.ssrn.com/" target="_blank" rel="noopener">Social Science Research Network</a></li>
+<li><a href="http://arxiv.org/archive/q-fin" target="_blank" rel="noopener">arXiv Quantitative Finance</a></li>
+<li><a href="http://www.seekingalpha.com/" target="_blank" rel="noopener">Seeking Alpha</a></li>
+<li><a href="http://www.elitetrader.com/" target="_blank" rel="noopener">Elite Trader</a></li>
+<li><a href="www.nuclearphynance.com">Nuclear Phynance</a></li>
+<li><a href="http://quantivity.wordpress.com/" target="_blank" rel="noopener">Quantivity</a></li>
+</ul>
+<p>你将看到的许多策略将归入均值回归和趋势跟踪/动量的范畴。均值回归策略是试图利用“价格系列”（例如两个相关资产之间的价差）的长期均值存在的事实以及与此均值的短期偏差最终会恢复的事实。动量策略试图利用市场趋势搭便车来利用投资者心理和大型基金结构，市场趋势可以在一个方向上聚集动量，并跟随趋势直到它逆转。</p>
+<p>量化交易的另一个非常重要的方面是交易策略的频率。低频交易（LFT）一般指持有资产超过一个交易日的任何策略。相应地，高频交易（HFT）通常指持有日内资产的策略。超高频交易（UHFT）是指在秒和毫秒量级持有资产的策略。作为一名零售商，只有对交易“技术堆栈”和订单动态有详细的了解后，HFT和UHFT当然是可能的。在这篇介绍性文章中，我们不会在很大程度上讨论这些方面。</p>
+<p>一旦确定了一个或者一套策略，就需要在历史数据上进行盈利能力测试。这是回测的领域。</p>
+<h3 id="策略回测"><a href="#策略回测" class="headerlink" title="策略回测"></a>策略回测</h3><p>回溯测试的目的是提供证据，证明通过上述过程确定的策略在应用于历史数据和样本外数据时都是有利可图的。 这预示着战略将如何在“现实世界”中发挥作用。 但是，由于各种原因，回测不是成功的保证。 它可能是量化交易中最微妙的领域，因为它带来了许多偏差，必须尽可能仔细考虑和消除。 我们将讨论常见的偏差类型，包括前瞻偏差，生存偏差和优化偏差（也称为“数据窥探”偏差）。 回溯测试中的其他重要领域包括历史数据的可用性和清洁度，考虑实际交易成本以及确定鲁棒的回测平台。 我们将在下面的执行系统部分进一步讨论交易成本</p>
+<p>一旦确定了战略，就必须获得历史数据，通过这些数据进行测试，或许可以进行改进。 所有资产类别中都有大量数据供应商。 它们的成本通常随着数据的质量，深度和及时性而变化。 开始量化交易者的传统起点（至少在零售层面）是使用雅虎财经的免费数据集。 我不会在这里过多地提供提供者，而是在处理历史数据集时我想集中讨论一般问题。</p>
+<p>历史数据的主要问题包括准确性/清洁度，生存偏差以及对股息和股票分割等公司行为的调整</p>
+<ul>
+<li><strong>准确性</strong>与数据的整体质量有关 - 是否包含任何错误。 错误有时很容易识别，例如使用尖峰滤波器，它会在时间序列数据中挑出不正确的“尖峰”并对其进行校正。 在其他时候，他们很难被发现。 通常需要有两个或更多提供者，然后相互检查他们的所有数据</li>
+<li><strong>生存偏差</strong>通常是免费或廉价数据集的“特征”。 具有生存偏差的数据集意味着它不包含不再交易的资产。 就股票而言，这意味着已退市/破产股票。 这种偏差意味着在这样的数据集上测试的任何股票交易策略都可能比在“现实世界”中表现更好，因为已经预先选择了历史“赢家”</li>
+<li><strong>公司行为</strong>包括公司执行的“后勤”活动，这些活动通常会导致原始价格的阶跃性变化，不应包括在价格回报的计算中。 股息和股票分割的调整是常见的罪魁祸首。 必须在这些动作中的每一个上执行称为后调整的过程。 必须非常小心，不要将股票分割与真正的回报调整混淆。 很多交易员都被公司行动所困扰！</li>
+</ul>
+<p>为了执行回测程序，必须使用软件平台。 您可以选择专用的backtest软件，例如Tradestation，数字平台（如Excel或MATLAB），或者使用Python或C ++等编程语言进行完全自定义实现。 我不会过多地关注Tradestation（或类似的），Excel或MATLAB，因为我相信创建一个完整的内部技术堆栈（由于下面列出的原因）。 这样做的好处之一是，即使使用非常先进的统计策略，也可以紧密集成回测软件和执行系统。 特别是对于HFT策略，使用自定义实现至关重要。</p>
+<p>在回测系统时，必须能够量化它的性能。量化策略的“行业标准”指标是最大亏损和夏普比率。最大亏损表征了特定时间段（通常为年度）的账户净值曲线中最大的峰谷下降。这通常被称为百分比。由于许多统计因素，LFT策略往往比HFT策略具有更大的下降。历史回溯测试将显示过去的最大跌幅，这是该策略未来跌幅表现的良好指导。第二个衡量标准是夏普比率，启发式定义为超额收益的平均值除以超额收益的标准差。在这里，超额收益是指策略的回报高于预先确定的基准，例如标准普尔500指数或3个月国库券。请注意，年化回报不是通常使用的度量，因为它没有考虑策略的波动性（与夏普比率不同）。</p>
+<p>通过良好的夏普和最小化的下降，一旦策略被回测并且被认为没有偏差（尽可能多的！），是构建执行系统的时候了。</p>
+<h3 id="执行系统"><a href="#执行系统" class="headerlink" title="执行系统"></a>执行系统</h3><p>执行系统是由策略生成的交易列表由代理发送和执行的手段。 尽管贸易生成可以是半自动化甚至是全自动化的，但执行机制可以是手动，半手动（即“一键”）或完全自动化。 对于LFT策略，手动和半手动技术很常见。 对于HFT策略，有必要创建一个完全自动化的执行机制，该机制通常与交易生成器紧密耦合（由于策略和技术的相互依赖）。</p>
+<p>创建执行系统时的关键考虑因素是经纪人的接口，交易成本（包括佣金，滑点和差价）的最小化以及线上系统性能与回测性能的差异</p>
+<p>有很多方法可以与经纪人联系。它们的范围从通过电话呼叫您的经纪人到全自动高性能应用程序编程接口（API）。理想情况下，您希望尽可能自动执行交易。这使您可以专注于进一步的研究，并允许您运行多种策略甚至更高频率的策略（事实上，如果没有自动执行，HFT基本上是不可能的）。上面概述的常用回溯测试软件，如MATLAB，Excel和Tradestation，适用于频率较低，策略较简单的软件。然而，有必要构建一个用高性能语言（如C ++）编写的内部执行系统，以便进行任何真正的HFT。作为一则轶事，在我曾经受雇的基金中，我们有一个10分钟的“交易循环”，我们每10分钟下载一次新的市场数据，然后在同一时间段内根据该信息执行交易。这是使用优化的Python脚本。对于接近分钟级或者秒级频率数据的任何事情，我相信C / C ++会更理想</p>
+<p>在较大的基金中，优化执行通常不是量化交易者的领域。 然而，在较小的商店或高频交易公司中，交易员是执行者，因此通常需要更广泛的技能组合。 如果您希望受雇于基金，请记住这一点。 您的编程技能与统计学和计量经济学人才一样重要，甚至更重要！</p>
+<p>落在执行旗下的另一个主要问题是交易成本最小化。 交易成本通常有三个组成部分：佣金（或税），即经纪人，交易所和证券交易委员会（或类似的政府监管机构）收取的费用; 滑点，这是您打算填写的订单与实际填写的订单之间的差异; 价差，即被交易证券的买入/卖出价格之间的差价。 注意，差价不是恒定的，并且取决于市场中当前的流动性（即买/卖订单的可用性）</p>
+<p>交易成本可以在具有良好夏普比率的极其有利可图的策略和具有可怕的夏普比率的极其无利可图的策略之间产生差异。从回溯测试中正确预测交易成本可能是一项挑战。根据策略的频率，您需要访问历史交易数据，其中包括买入/卖出价格的价格数据。由于这些原因，在大型基金中整个团队都致力于优化执行系统。考虑一个基金需要卸载大量交易的情况（其中这样做的理由是多种多样的！）。通过将这么多股票“倾销”到市场上，它们将迅速压低价格并可能无法获得最佳执行。因此存在将“滴灌”订单推向市场的算法，尽管该基金存在滑点风险。此外，其他战略“捕食”这些必需品，并可以利用低效率。这是基金结构套利的领域</p>
+<p>执行系统的最后一个主要问题是策略性能与回测性能的分歧。 这可能由于多种原因而发生。 在考虑回测时，我们已经深入讨论了前瞻偏差和优化偏差。 但是，某些策略无法在部署之前轻松测试这些偏差。 这主要发生在HFT中。 执行系统中可能存在错误以及交易策略本身没有出现在回溯测试中但是确实会出现在实际交易中。 在部署策略之后，市场可能会受到制度变更的影响。 新的监管环境，不断变化的投资者情绪和宏观经济现象都会导致市场行为的分歧，从而导致策略的盈利能力出现分歧。</p>
+<h3 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h3><p>量化交易难题的最后一部分是风险管理过程。 “风险”包括我们讨论过的所有先前的偏见。 它包括技术风险，例如位于相同交换机的服务器突然发生硬盘故障。 它包括经纪风险，例如经纪人破产（不像听起来那么疯狂，考虑到最近MF Global的恐慌！）。 简而言之，它涵盖了几乎所有可能干扰交易实施的内容，其中有许多来源。 全书都致力于量化策略的风险管理，所以我不会试图在这里阐明所有可能的风险来源。</p>
+<p>风险管理还包括所谓的最优资本配置，这是投资组合理论的一个分支。 这是将资本分配给一系列不同策略以及这些策略中的交易的手段。 这是一个复杂的领域，依赖于一些非平凡的数学。 最佳资本分配和策略杠杆相关的行业标准称为凯利标准。 由于这是一篇介绍性文章，我将不再详述其计算方法。 凯利标准对回报的统计性质做出了一些假设，这在金融市场中并不常见，因此交易者在实施时往往保守。</p>
+<p>风险管理的另一个关键组成部分是处理自己的心理状况。 有许多认知偏见可以渗透到交易中。 虽然如果策略是单独的，那么算法交易的问题就少了！ 一个常见的偏差是损失厌恶(<a href="https://baike.baidu.com/item/%E6%8D%9F%E5%A4%B1%E5%8E%8C%E6%81%B6/2921704" target="_blank" rel="noopener"><code>loss aversion</code></a>)，即失败的位置因为需要意识亏损的痛苦而没有关闭。 同样，利润也可能过早，因为担心失去已经获得的利润可能太大了。 另一种常见偏见称为新近偏差。 当交易者过分强调近期事件而不是长期事件时，这表明了这一点。 当然，还有一对经典的情绪偏见 - 恐惧和贪婪。 这些通常会导致杠杆率过低或过度杠杆化，这可能导致爆炸（即账户资产变为零或更差！）或利润减少</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>可以看出，量化交易是一个虽然非常有趣，但极其复杂的量化金融领域。 我在这篇文章中仅仅涉及了这个主题的表面，它已经变得相当长了！ 那些我只给了一两句话的问题，都已经有一本书或者一篇论文去讨论。 因此，在申请量化基金交易工作之前，有必要进行大量的基础研究。 至少你需要大量的统计学和计量经济学背景，并且有很多实施经验，通过MATLAB，Python或R等编程语言。对于更高频率的更复杂的策略，你的技能很可能 包括Linux内核修改，C / C ++，汇编编程和网络延迟优化</p>
+<p>如果您有兴趣尝试创建自己的算法交易策略，我的第一个建议是擅长编程。 我的偏好是尽可能多地构建数据抓取器，策略回溯测试器和执行系统。 如果你自己的资金在线上，你知道你已经完全测试了你的系统并意识到它的陷阱和特殊问题，你晚上睡不好吗？ 将此外包给供应商，虽然可能在短期内节省时间，从长远来看代价可能非常昂贵</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/量化交易/" rel="tag"># 量化交易</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/21/flink之状态和容错(1)/" rel="next" title="flink之状态和容错(1)Working with `state`">
+                <i class="fa fa-chevron-left"></i> flink之状态和容错(1)Working with `state`
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/19/flink-alerting/" rel="prev" title="动态配置流处理-BetterCloud如何使用Flink构建报警系统">
+                动态配置流处理-BetterCloud如何使用Flink构建报警系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Willcat</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原文"><span class="nav-number">1.</span> <span class="nav-text">原文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#译文"><span class="nav-number">2.</span> <span class="nav-text">译文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略回测"><span class="nav-number">3.</span> <span class="nav-text">策略回测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行系统"><span class="nav-number">4.</span> <span class="nav-text">执行系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#风险管理"><span class="nav-number">5.</span> <span class="nav-text">风险管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Willcat</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
