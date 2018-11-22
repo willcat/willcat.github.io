@@ -98,9 +98,7 @@ val specificControlStream = controlStream.select("specific")
 然后，我们将事件流连接到全局和特定控制流的联合：
 ```scala
 val filterStream = globalControlStream.union(specificControlStream)
-     .connect(
-       eventStream
-     )
+    .connect(eventStream)
 ```
 
 接下来，事件进入`CoFlatMap`。`FlatMap 1`将控件事件添加到本地状态的列表中。如果现有规则有更新，我们也可以在此处进行更改。`FlatMap 2`接收实时客户事件并检查是否存在与该客户ID匹配的任何规则配置。如果匹配，则将事件与所有匹配的控制事件一起输出为单个过滤事件。
