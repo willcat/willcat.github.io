@@ -128,4 +128,4 @@ DataStream<TemperatureAlert> alerts = alertPatternStream.flatSelect(
 
 在未来，Flink社区将进一步扩展CEP库的功能和表现力。 路线图上的下一步是支持正则表达式模式规范，包括`Kleene star`，下限和上限以及否定。 此外，计划允许where子句访问先前匹配的事件的字段。 此功能将允许尽早修剪无意义的事件序列。
 
-注意：示例代码需要Flink 1.0.1或更高版本。
+注意：示例代码需要Flink 1.6.1或更高版本。
