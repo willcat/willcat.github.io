@@ -88,7 +88,7 @@
 <meta property="og:description" content="随着无处不在的传感器网络和智能设备不断收集越来越多的数据，我们面临着近乎实时地分析不断增长的数据流的挑战。 能够快速响应不断变化的趋势或提供最新的商业智能可能是公司成功或失败的决定性因素。 实时处理中的关键问题是检测数据流中的事件模式。 复杂事件处理（CEP）恰好解决了连续传入事件与模式匹配的问题。 匹配的结果通常是从输入事件派生的复杂事件。 与对存储数据执行查询的传统DBMS相比，CEP在存储的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/flink_cep/cep-1.png">
-<meta property="og:updated_time" content="2018-11-22T08:06:58.191Z">
+<meta property="og:updated_time" content="2018-11-22T08:10:37.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flink cep简介">
 <meta name="twitter:description" content="随着无处不在的传感器网络和智能设备不断收集越来越多的数据，我们面临着近乎实时地分析不断增长的数据流的挑战。 能够快速响应不断变化的趋势或提供最新的商业智能可能是公司成功或失败的决定性因素。 实时处理中的关键问题是检测数据流中的事件模式。 复杂事件处理（CEP）恰好解决了连续传入事件与模式匹配的问题。 匹配的结果通常是从输入事件派生的复杂事件。 与对存储数据执行查询的传统DBMS相比，CEP在存储的">
@@ -350,7 +350,7 @@
 <p>Apache Flink具有真正的流媒体特性以及低延迟和高吞吐量流处理功能，非常适合CEP工作负载。 因此，Flink社区已经推出了Flink 1.0的新CEP库的第一个版本。 在本博文的其余部分，我们将介绍Flink的CEP库，并通过监控数据中心的示例说明其易用性。</p>
 <p><strong>监控和警报生成数据中心</strong><br><img src="/images/flink_cep/cep-1.png" alt="flink-cep-1"><br>假设我们有一个带有多个机架的数据中心。 对于每个机架，都会监控功耗和温度。 无论何时发生这种测量，分别产生新的功率或温度事件。 基于此监控事件流，我们希望检测即将过热的机架，并动态调整其工作负载和冷却。</p>
 <p>对于这种情况，我们使用两阶段方法。 首先，我们监测温度事件。 每当我们看到温度超过阈值的两个连续事件时，我们就会产生一个温度警告，其中包含当前的平均温度。 温度警告不一定表示机架即将过热。 但是，每当我们看到连续两次警告温度升高时，我们就会发出此机架的警报。 然后，该警报可以导致对冷却机架的对策。</p>
-<p><strong>使用Apache Flink实现</strong><br>首先，我们定义传入监视事件流的消息。 每条监控消息都包含其原始机架ID。 温度事件还包含当前温度，功耗事件包含当前电压。 我们将事件建模为POJO:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">MonitoringEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rackID;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TemperatureEvent</span> <span class="keyword">extends</span> <span class="title">MonitoringEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> temperature;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerEvent</span> <span class="keyword">extends</span> <span class="title">MonitoringEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> voltage;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="使用Apache-Flink实现"><a href="#使用Apache-Flink实现" class="headerlink" title="使用Apache Flink实现"></a>使用Apache Flink实现</h1><p>首先，我们定义传入监视事件流的消息。 每条监控消息都包含其原始机架ID。 温度事件还包含当前温度，功耗事件包含当前电压。 我们将事件建模为POJO:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">MonitoringEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rackID;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TemperatureEvent</span> <span class="keyword">extends</span> <span class="title">MonitoringEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> temperature;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerEvent</span> <span class="keyword">extends</span> <span class="title">MonitoringEvent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> voltage;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>现在我们可以使用Flink的一个连接器（例如<code>Kafka</code>，<code>RabbitMQ</code>等）来摄取监视事件流。 这将为我们提供一个<code>DataStream&lt;MonitoringEvent&gt; inputEventStream</code>，我们将其用作Flink的CEP算子的输入。 但首先，我们必须定义事件模式以检测温度警告。 CEP库提供了一个直观的Pattern API，可以轻松定义这些复杂的模式。</p>
 <p>每个模式都由一系列事件组成，这些事件可以指定可选的过滤条件。 模式始终以第一个事件开始，我们将为其指定名称“First Event”<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern.&lt;MonitoringEvent&gt;begin(<span class="string">"First Event"</span>);</span><br></pre></td></tr></table></figure></p>
 <p>此模式将匹配每个监视事件。 由于我们只对温度高于阈值的<code>TemperatureEvents</code>感兴趣，我们必须添加一个额外的子类型约束和一个where子句<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern.&lt;MonitoringEvent&gt;begin(<span class="string">"First Event"</span>)</span><br><span class="line">    .subtype(TemperatureEvent.class)</span><br><span class="line">    .where(evt -&gt; evt.getTemperature() &gt;= TEMPERATURE_THRESHOLD);</span><br></pre></td></tr></table></figure></p>
@@ -366,7 +366,7 @@
 <p>同样，我们通过“rackID”键入(keyBy)警告输入流，以便我们单独为每个机架生成警报。 接下来，我们应用<code>flatSelect</code>方法，该方法将允许我们访问匹配的事件序列，并允许我们输出任意数量的复杂事件。 因此，当且仅当温度升高时，我们才会生成<code>TemperatureAlert</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">DataStream&lt;TemperatureAlert&gt; alerts = alertPatternStream.flatSelect(</span><br><span class="line">    (Map&lt;String, TemperatureWarning&gt; pattern, Collector&lt;TemperatureAlert&gt; out) -&gt; &#123;</span><br><span class="line">        TemperatureWarning first = pattern.get(<span class="string">"First Event"</span>);</span><br><span class="line">        TemperatureWarning second = pattern.get(<span class="string">"Second Event"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (first.getAverageTemperature() &lt; second.getAverageTemperature()) &#123;</span><br><span class="line">            out.collect(<span class="keyword">new</span> TemperatureAlert(first.getRackID()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
 <p><code>DataStream&lt;TemperatureAlert&gt;</code>警报是每个机架的温度警报的数据流。 基于这些警报，我们现在可以调整过热架的工作负载或冷却。</p>
 <p>可以在此<a href="https://github.com/tillrohrmann/cep-monitoring" target="_blank" rel="noopener">repository</a>中找到所提供示例的完整源代码以及生成随机监视事件的示例数据源。</p>
-<p>#总结<br>在这篇博文中，我们已经看到使用Flink的CEP库推理事件流是多么容易。 使用数据中心的监控和警报生成示例，我们实施了一个简短的程序，当机架即将过热并可能发生故障时通知我们。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在这篇博文中，我们已经看到使用Flink的CEP库推理事件流是多么容易。 使用数据中心的监控和警报生成示例，我们实施了一个简短的程序，当机架即将过热并可能发生故障时通知我们。</p>
 <p>在未来，Flink社区将进一步扩展CEP库的功能和表现力。 路线图上的下一步是支持正则表达式模式规范，包括<code>Kleene star</code>，下限和上限以及否定。 此外，计划允许where子句访问先前匹配的事件的字段。 此功能将允许尽早修剪无意义的事件序列。</p>
 <p>注意：示例代码需要Flink 1.0.1或更高版本。</p>
 
@@ -459,8 +459,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -520,6 +529,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Apache-Flink实现"><span class="nav-number">1.</span> <span class="nav-text">使用Apache Flink实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
