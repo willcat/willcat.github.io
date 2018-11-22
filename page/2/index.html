@@ -249,6 +249,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/docker笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Willcat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鹤舞云端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/docker笔记1/" itemprop="url">docker笔记1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T13:07:05+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h3><ul>
+<li><code>Docker</code> 是一个执行操作系统级别虚拟化的软件(<code>operating-system-level virtualization</code>),此技术也被成为容器化(<code>containerization</code>),简而言之就是一个可以运行应用的容器。</li>
+<li><code>Docker</code> 是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业余项目。它基于 Google 公司推出的 <code>Go</code> 语言实现。 项目后来加入了 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 GitHub 上进行维护。<h4 id="容器-Container-是什么"><a href="#容器-Container-是什么" class="headerlink" title="容器(Container)是什么"></a>容器(<code>Container</code>)是什么</h4></li>
+<li>容器是将需要的软件打包的一个标准单元。</li>
+<li>一个<code>Docker</code>容器镜像是一个轻量级的、独立的、可执行的软件包，包中包括应用运行所需要的一切:代码、运行时、系统统计、系统类库和设置。<h4 id="容器的运行机制"><a href="#容器的运行机制" class="headerlink" title="容器的运行机制"></a>容器的运行机制</h4></li>
+<li>容器镜像在运行时就成为一个容器，具体到<code>Docker</code>的情形就是: 当镜像在<code>Docker Engine</code>上运行时就成为了容器。</li>
+<li>无论基础架构如何，容器化软件都能始终运行如一，且适用于基于Windows和Linux的应用。</li>
+</ul>
+<h3 id="Docker能做什么"><a href="#Docker能做什么" class="headerlink" title="Docker能做什么"></a>Docker能做什么</h3><p><code>Docker</code> 项目的目标是实现轻量级的操作系统虚拟化解决方案。 <code>Docker</code> 的基础是 <code>Linux</code> 容器（<code>LXC</code>）等技术。在 <code>LXC</code> 的基础上 <code>Docker</code> 进行了进一步的封装，让用户不需要去关心容器的管理，使得操作更为简便。用户操作 <code>Docker</code> 的容器就像操作一个快速轻量级的虚拟机一样简单</p>
+<h3 id="Docker的优势是什么"><a href="#Docker的优势是什么" class="headerlink" title="Docker的优势是什么"></a>Docker的优势是什么</h3><p><code>Docker</code>主要是用来代替传统虚拟化方式(虚拟机)技术的，有以下特点</p>
+<ul>
+<li>容器是在<strong>操作系统层面</strong>上实现虚拟化，直接复用本地主机的操作系统，而传统方式则是在<strong>硬件层面</strong>实现</li>
+<li>更快速的交付和部署</li>
+<li>高效的部署和扩容</li>
+<li>更高的资源利用率</li>
+<li>更简单的管理</li>
+</ul>
+<h3 id="Docker核心概念"><a href="#Docker核心概念" class="headerlink" title="Docker核心概念"></a>Docker核心概念</h3><h4 id="镜像-images"><a href="#镜像-images" class="headerlink" title="镜像(images)"></a>镜像(images)</h4><p>Docker 镜像（Image）就是一个只读的模板。镜像可以用来创建 Docker 容器，一个镜像可以创建很多容器。Docker 提供了一个很简单的机制来创建镜像或者更新现有的镜像，用户甚至可以直接从其他人那里下载一个已经做好的镜像来直接使用</p>
+<h4 id="仓库-repository"><a href="#仓库-repository" class="headerlink" title="仓库(repository)"></a>仓库(repository)</h4><p>仓库（Repository）是集中存放镜像文件的场所。有时候会把仓库和仓库注册服务器（Registry）混为一谈，并不严格区分。实际上，仓库注册服务器上往往存放着多个仓库，每个仓库中又包含了多个镜像，每个镜像有不同的标签（tag）。</p>
+<p>仓库分为公开仓库（Public）和私有仓库（Private）两种形式。最大的公开仓库是 Docker Hub，存放了数量庞大的镜像供用户下载。国内的公开仓库包括 时速云 、网易云 等，可以提供大陆用户更稳定快速的访问。当然，用户也可以在本地网络内创建一个私有仓库。</p>
+<p>当用户创建了自己的镜像之后就可以使用 push 命令将它上传到公有或者私有仓库，这样下次在另外一台机器上使用这个镜像时候，只需要从仓库上 pull 下来就可以了。</p>
+<p>Docker 仓库的概念跟 Git 类似，注册服务器可以理解为 GitHub 这样的托管服务。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://www.cnblogs.com/SzeCheng/p/6822905.html" target="_blank" rel="noopener">几张图帮你理解 docker 基本原理及快速入门</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Docker_(software" target="_blank" rel="noopener">Docker维基百科</a>)</li>
+<li><a href="https://www.docker.com/resources/what-container" target="_blank" rel="noopener">Docker官网:What is a Container</a></li>
+<li><a href="http://www.cnblogs.com/wish123/p/5573098.html" target="_blank" rel="noopener">Docker —几个概念的理解</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/maven私服搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1947,154 +2116,6 @@ pool.shutdown();</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/21/实时分析笔记一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Willcat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="鹤舞云端">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/实时分析笔记一/" itemprop="url">实时分析笔记一</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T10:15:59+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="实时分析系统设计要素"><a href="#实时分析系统设计要素" class="headerlink" title="实时分析系统设计要素"></a>实时分析系统设计要素</h3><ol>
-<li>数据采集</li>
-<li>数据流程</li>
-<li>数据处理</li>
-<li>数据存储</li>
-<li>数据交付</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2145,7 +2166,7 @@ pool.shutdown();</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
