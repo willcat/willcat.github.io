@@ -78,14 +78,12 @@ public class TemperatureWarning {
 }
 
 DataStream<TemperatureWarning> warnings = tempPatternStream.select(
-    (Map<String, MonitoringEvent> pattern) -> {
-        TemperatureEvent first = (TemperatureEvent) pattern.get("First Event");
-        TemperatureEvent second = (TemperatureEvent) pattern.get("Second Event");
+        (Map<String, List<MonitoringEvent>> pattern) -> {
+            TemperatureEvent first = (TemperatureEvent) pattern.get("first").get(0);
+            TemperatureEvent second = (TemperatureEvent) pattern.get("second").get(0);
 
-        return new TemperatureWarning(
-            first.getRackID(),
-            (first.getTemperature() + second.getTemperature()) / 2);
-    }
+            return new TemperatureWarning(first.getRackID(), (first.getTemperature() + second.getTemperature()) / 2);
+        }
 );
 ```
 
@@ -111,14 +109,15 @@ PatternStream<TemperatureWarning> alertPatternStream = CEP.pattern(
 同样，我们通过“rackID”键入(keyBy)警告输入流，以便我们单独为每个机架生成警报。 接下来，我们应用`flatSelect`方法，该方法将允许我们访问匹配的事件序列，并允许我们输出任意数量的复杂事件。 因此，当且仅当温度升高时，我们才会生成`TemperatureAlert`
 ```java
 DataStream<TemperatureAlert> alerts = alertPatternStream.flatSelect(
-    (Map<String, TemperatureWarning> pattern, Collector<TemperatureAlert> out) -> {
-        TemperatureWarning first = pattern.get("First Event");
-        TemperatureWarning second = pattern.get("Second Event");
+    (Map<String, List<TemperatureWarning>> pattern, Collector<TemperatureAlert> out) -> {
+        TemperatureWarning first = pattern.get("first").get(0);
+        TemperatureWarning second = pattern.get("second").get(0);
 
         if (first.getAverageTemperature() < second.getAverageTemperature()) {
             out.collect(new TemperatureAlert(first.getRackID()));
         }
-    });
+    },
+    TypeInformation.of(TemperatureAlert.class));
 ```
 `DataStream<TemperatureAlert>`警报是每个机架的温度警报的数据流。 基于这些警报，我们现在可以调整过热架的工作负载或冷却。
 
