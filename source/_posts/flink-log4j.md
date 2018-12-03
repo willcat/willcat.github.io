@@ -40,10 +40,10 @@ log4j.appender.file.layout.ConversionPattern=%d{dd/MM/yyyy HH:mm:ss.SSS} %5p [%-
 log4j.logger.org.apache.flink=WARN
 ```
 ## standalone Mode
-在独立模式下，实际使用的配置文件不是jar包里的那个。这是因为Flink有自己的配置文件，这些文件优先于您自己的配置文件。
+在独立模式下，实际使用的配置文件不是`jar`包里的那个。这是因为Flink有自己的配置文件，这些文件优先于您自己的配置文件。
 
 **默认文件**: Flink附带以下默认属性文件
-- `log4j-cli.properties`: 由Flink命令行客户端使用（例如flink run）（不是在集群上执行的代码）
+- `log4j-cli.properties`: 由Flink命令行客户端使用（例如`flink run`）（不是在集群上执行的代码）
 - `log4j-yarn-session.properties`:  启动YARN会话时由Flink命令行客户端使用（`yarn-session.sh`）
 - `log4j.properties`: `JobManager` / `Taskmanager`日志（独立和YARN）
 
