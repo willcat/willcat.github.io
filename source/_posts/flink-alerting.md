@@ -58,7 +58,8 @@ BetterCloud提供了一个可供所有客户使用的“全局”警报库，它
 首先，这是我们的每个事件类型的样子。客户事件（我们的实时事件流）具有客户ID和有效负载，它是JSON字符串。控制事件具有客户ID，警报ID以及许多其他字段，包括引导客户ID，我们稍后会介绍。 这在将新创建的规则应用于历史数据方面发挥了作用。
 ```scala
 case class CustomerEvent(customerId: UUID, payload: String)
-case class ControlEvent(customerId: UUID, alertId: UUID, alertName: String, alertDescription: String, thres
+
+case class ControlEvent(customerId: UUID, alertId: UUID, alertName: String, alertDescription: String, threshold: Int, jsonPath: String, bootstrapCustomerId: UUID)
 ```
 
 如前所述，我们有一个事件流源，它以客户ID为键，以确保在单个Flink任务管理器上维护单个客户的所有计数。您将看到我们过滤掉与模式不匹配的事件。
