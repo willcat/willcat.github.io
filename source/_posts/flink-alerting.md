@@ -25,19 +25,19 @@ BetterCloud提供了一个可供所有客户使用的“全局”警报库，它
 ![business needs and challenges](/images/flink_alerting/slide-1.png)
 
 # 基础学习：事件流模型和规则引擎
-在警报项目开始时，我们的团队很快了解到事件流处理模型最适合我们的用例，具体而言，它比我们的警报应用程序更适合于摄取(ingest)和查询模型。
+在警报项目开始时，我们的团队很快了解到事件流处理模型最适合我们的用例，具体而言，它比摄取(ingest)和查询模型更适合我们的警报应用程序。
 
-通过大量冗余处理，摄取和查询相对较慢且效率较低。我们已经提到低延迟对于像我们这样的警报系统很重要，而且我们不会从摄取和查询模型中获得。最后，摄取和查询更多地关注状态而不是状态转换，状态转换对我们来说最重要。
+由于大量的冗余处理，摄取和查询相对较慢且低效。我们已经提到低延迟对于像我们这样的警报系统很重要，而且这是摄取和查询模型无法做到的。最后，摄取和查询更多地关注状态而不是状态转换，而状态转换对我们来说很最重要。
 
-每天由BetterCloud平台处理的数亿个事件已经通过Apache Kafka流式传输给我们（我们的数据提取团队在启动方面做得非常好），因此事件流处理模型对我们来说很简单
+每天由BetterCloud平台处理的数亿个事件已经通过`Apache Kafka`流式传输给我们（我们的数据提取团队在前期工作方面做得非常好），因此事件流处理模型对我们来说很简单
 
-在选择流处理器时，BetterCloud不仅仅是凭空选择Flink或者掷硬币。我们根据一组评估标准评估了四种不同的流处理解决方案。Flink是我们的选择，因为充满活力的社区，商业支持的可用性以及实现`exactly once`处理的能力。
+在选择流处理器时，BetterCloud不仅仅是凭空或者掷硬币选择`Flink`。我们根据一组评估标准评估了四种不同的流处理解决方案。我们选择选定了`Flink`，因为其充满活力的社区，商业支持的可用性以及实现`exactly once`处理的能力。
 
 第二个关键设计决策：在流程的早期，我们认为规则引擎比硬编码规则更有价值。硬编码规则难以维护，缺乏灵活性，并且对于工程团队来说并不是很有趣。此外，我们的客户需要能够根据他们关心的事件自定义警报。
 
-我们的团队已经将`Avro`或`JSON`作化为序列化格式的标准，因此我们选择了`Jayway`的`JsonPath`作为规则引擎。`JsonPath`对离散的JSON文档执行查询，它还提供了一种非常简单的方法来围绕查询包装非技术用户界面。我们的用户也可以在生产中实际运行新查询之前测试新查询是否按预期工作。
+我们的团队已经将`Avro`或`JSON`作化为序列化格式的标准，因此我们选择了`Jayway`的`JsonPath`作为规则引擎。`JsonPath`对离散的JSON文档执行查询，它还提供了一种非常简单的方法来围绕查询包装非技术用户界面。在线上实际运行新查询之前，我们的用户也可以先测试新查询是否按预期工作。
 
-JsonPath将文档解析为树，并使用熟悉的点表示法遍历树。它还提供索引和JavaScript运算符的子集（例如，数组的长度）。它支持的查询相当复杂。
+`JsonPath`将文档解析为树，并使用熟悉的点表示法遍历树。它还提供索引和JavaScript运算符的子集（例如，数组的长度）。它支持的查询相当复杂。
 ![jsonpath](/images/flink_alerting/slide-2.png)
 
 结果是我们的最终用户可以在BetterCloud平台内创建自己的警报，并根据自定义事件的某些组合进行触发。
@@ -105,12 +105,12 @@ val filterStream = globalControlStream.union(specificControlStream)
 ```scala
 class FilterFunction() extends RichCoFlatMapFunction[ControlEvent, CustomerEvent, FilteredEvent] {
     var configs = new mutable.ListBuffer[ControlEvent]()
-    
+
     override def flatMap1(value: ControlEvent, out: Collector[FilteredEvent]): Unit = {
         configs = configs.filter(x => (x.customerId != value.customerId) && (x.alertId != value.alertId))
         configs.append(value)
     }
-    
+
     override def flatMap2(value: CustomerEvent, out: Collector[FilteredEvent]): Unit = {
         val eventConfigs = configs.filter(x => (x.customerId == x.customerId) || (x.customerId == Constants.GLOBAL_CUSTOMER_ID))
         if (eventConfigs.size > 0) {
@@ -154,4 +154,3 @@ class FilterFunction() extends RichCoFlatMapFunction[ControlEvent, CustomerEvent
 
 # 结束
 感谢您的关注，我们希望您对我们的用例概述有所帮助。 同样，如果您想了解更多信息，可以在此处查看我们的[Flink Forward演示文稿](https://docs.google.com/presentation/d/1zTde6_nD3LV33IjiOfEsaIWnt-YGpnX76-ETbSU1MIQ/edit?usp=sharing)，并从此处的帖子中获取[示例代码](https://github.com/brelloch/FlinkForward2017)。
-
